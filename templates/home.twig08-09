@@ -1,0 +1,100 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% import "macro/tiles.twig" as tile %}
+{% import "macro/tips.twig" as tip %}
+
+{% block template %}home{% endblock %}
+{% block title %}Home{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="row-fluid">
+		{% if not renewal_time is empty %}
+		<div class="alert alert-info">
+			 <button type="button" class="close" data-dismiss="alert">&times;</button>
+			 <strong>Warning!</strong> Your membership expires in {{ renewal_time }}. Go to the <a href="/amember4/signup">Membership</a> area to renew.
+		</div>
+		{% endif %}
+
+		{{ tip.showall(tips) }}
+	</div>
+
+	<div class="row-fluid">
+		<div class="span7">
+			<div class="tiles">
+				<div class="tile tile-blue overview" data-ratio="#support-tiles" style="cursor:default">
+					<div class="content">
+						<div style="float:right" id="avatar">
+							<img style="float:right" src="/api/user/avatar/{{ id }}">
+						</div>
+
+						<span style="font-size:1.2em"><b>{{ name }}</b></span><br>
+						<p>
+							{# Membership Type: {{ product }}<br> #}
+							Total Progress: {{ progress }}%<br>
+							{% if progress < 100 %}
+							Current Level: <a href="/level/{{ user_level }}">Level {{ user_level }}</a><br>
+							Next Available Lesson: <a href="/level/{{ user_level }}/{{ maxlesson }}/video">Lesson {{ maxlesson }}</a>
+							{% else %}
+							Well done! You have completed the course!
+							{% endif %}
+						<p>
+					</div>
+					<div class="caption">Overview</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="support-tiles" class="span5">
+			<div class="tiles">
+				{{ tile.classed('stats', 'teal', 'Stats', 'analysis.png') }}
+				{{ tile.classed('help', 'purple', 'Help', 'support-small.png') }}
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span7">
+				<div id="levels">
+					<div class="tiles">
+						{% set colours = ['green', 'cyan', 'teal', 'orange'] %}
+						{% for item in levels %}
+							{% if loop.index0 > 0 and loop.index0 % 2 == 0 %}
+					</div>
+					<div class="tiles">
+							{% endif %}
+
+							{% set label = 'Level ' ~ item.id %}
+
+							{% if item.id < startlevel %}
+								{% set access_class = 'locked' %}
+								{% set icon = 'lock' %}
+								{% set label = label ~ ' (Skipped)' %}
+							{% elseif item.id > user_level %}
+								{% set access_class = 'locked' %}
+								{% set icon = 'lock' %}
+							{% else %}
+								{% set access_class = 'unlocked' %}
+								{% set icon = 'check-empty' %}
+								{% set label = label ~ ': ' ~ item.progress ~ '%' %}
+							{% endif %}
+
+							{% if access_class == 'unlocked' and item.progress == 100 %}
+								{% set icon = 'check' %}
+							{% endif %}
+
+							{# tile.classed(access_class, colours[loop.index0], label, icon, 0.6) #}
+							{{ tile.picture(access_class, colours[loop.index0], label, '/image/tile-level-' ~ (loop.index0 + 1) ~ '.jpg', 0.6, icon) }}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		
+			<div class="span5">
+				{{ tile.leaderboard(board, id) }}
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}

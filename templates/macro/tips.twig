@@ -1,0 +1,12 @@
+{% macro showall(tips) %}
+	{% for tip in tips %}
+		<div class="tip alert alert-block alert-info fade in" data-tip="{{ tip.id }}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<h4 class="alert-heading">Did you know …</h4>
+			<p>{{ tip.message|raw }}</p>
+			<p>
+				<a class="btn btn-primary" href="#">Got it!</a> <a class="btn" href="#">Remind Me Later</a>
+			</p>
+		</div>
+	{% endfor %}
+{% endmacro %}

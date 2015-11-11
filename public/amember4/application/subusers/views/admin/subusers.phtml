@@ -1,0 +1,29 @@
+<?php
+/**
+ * template to display subusers for a reseller
+ */
+$title = ___('Subusers');
+$this->setLayout('admin/user-layout.phtml');
+
+echo $content ?>
+<h1><?php __e('Reseller Packages') ?></h1>
+<div class="grid-container">
+    <table class="grid">
+        <tr>
+            <th><?php __e('Product') ?></th>
+            <th><?php __e('Purchased Credits') ?></th>
+            <th><?php __e('Active subusers') ?></th>
+            <th><?php __e('Pending subusers') ?></th>
+            <th><?php __e('Available Credits') ?></th>
+        </tr>
+        <?php foreach ($subusers_count as $product_id => $r): ?>
+        <tr style="text-align: right">
+            <td style="text-align: left"><?php __e(Am_Di::getInstance()->productTable->load($product_id, false)->title) ?></td>
+            <td><?php p($r['avail_count']) ?></td>
+            <td><?php p($r['active_count']) ?></td>
+            <td><?php p($r['pending_count']) ?></td>
+            <td><strong><?php p($r['avail_count']-$r['active_count']) ?></strong></td>
+        </tr>
+        <?php endforeach ?>
+    </table>
+</div>

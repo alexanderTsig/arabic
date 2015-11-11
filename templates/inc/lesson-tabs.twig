@@ -1,0 +1,30 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="#">
+            <span class="lessonnumber">{{ level }}.{{ lesson }}</span>: {{title_en}}
+        </a>
+
+        <ul class="nav">
+            <li class="video">
+                <a href="/level/{{ level }}/{{ lesson }}/video">
+                    <!-- <i class="icon-film"></i>&ensp; -->Video
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="exercise">
+                <a href="/level/{{ level }}/{{ lesson }}/exercise">
+                    <!-- <i class="icon-eye-open"></i>&ensp; -->Engage
+                    <span class="selected"></span>
+                </a>
+
+            </li>
+
+            <li class="exam">
+                <a href="/level/{{ level }}/{{ lesson }}/exam">
+                    <!-- <i class="icon-check"></i>&ensp; -->Unlock
+                    <span class="selected"></span>
+                </a>                            
+            </li>
+        </ul>
+    </div>
+</div>

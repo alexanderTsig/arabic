@@ -1,0 +1,73 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}support-feedback{% endblock %}
+
+{% block title %}Support : Feedback{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="/support">Help &amp; Support</a>
+
+			<ul class="nav">
+					<li><a href="/support/faq">FAQ</a></li>
+					<li><a href="/support/teacher">Teacher Support</a></li>
+					<li><a href="/support/contact">Customer Service</a></li>
+					<li class="active"><a href="/support/feedback">Send Feedback</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="alert" class="alert alert-success" style="display:none"></div>
+
+	<p>We try hard at Path to Arabic to make our customers happy but we're only human, and we don't always get it right. <p>Your feedback is important to us, and we'll try our best to improve our service to make sure your learning experience is as rewarding as possible.</p>
+
+	<p>Due to the volume of feedback received, we cannot guarantee a personal response. If you need help with something then please <a href="/support/contact">contact support</a> instead.</p>
+
+	<form class="form-horizontal" action="/api/support/contact" data-nonce="{{ nonce }}">
+		<fieldset>
+			<legend>How may we contact you?</legend>
+			
+			<div class="control-group">
+				<label class="control-label" for="email">Email Address</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-envelope"></i></span>
+						<input class="span12" type="email" name="email" placeholder="(required)" type="email"{% if not email is empty %} value="{{ email }}"{% endif %} disabled>
+					</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="phone">Phone Number</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-bell"></i></span>
+						<input class="span12" type="tel" name="phone" placeholder="(optional)"{% if not phone is empty %} value="{{ phone }}"{% endif %}>
+					</div>
+				</div>
+			</div>
+		</fieldset>	
+
+		<fieldset>
+			<legend>Tell us how we're doing</legend>
+
+			<div class="control-group">
+				<label class="control-label" for="comment">Feedback</label>
+				
+				<div class="controls">
+					<textarea rows="5" name="comment" class="span9" placeholder="Enter your feedback here …"></textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn btn-primary btn-large" disabled>Send feedback</button>
+					&emsp;<!-- <i class="icon-info-sign"></i> We hate spam as much as you do. View our <a href="/privacy">Privacy Policy</a>. -->Thanks for your time!
+				</div>
+			</div>
+		</fieldset>
+	</form>
+{% endblock %}

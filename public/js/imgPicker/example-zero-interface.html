@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>ImagePicker Demo</title>
+
+	<link rel="stylesheet" href="assets/css/imgpicker.css">
+	
+	<!-- JavaScript -->
+	<script src="assets/js/jquery-1.11.0.min.js"></script>
+	<script src="assets/js/jquery.Jcrop.min.js"></script>
+	<script src="assets/js/jquery.imgpicker.js"></script>
+
+</head>
+<body>
+	<div style="width:400px;margin:0 auto;text-align:center;">
+		<h2>Modal</h2>
+		
+		<img src="assets/img/default-avatar.png" id="avatar" width="150"><br>
+		
+		<!-- This button opens the avatar modal ( data-ip-modal="#avatarModal" ) -->
+		<button type="button" data-ip-modal="#avatarModal">Edit avatar</button>
+
+		<!-- Avatar Modal -->
+		<div class="ip-modal" id="avatarModal">
+			<div class="ip-modal-dialog">
+				<div class="ip-modal-content">
+					<div class="ip-modal-header">
+						<a class="ip-close" title="Close">&times;</a>
+						<h4 class="ip-modal-title">Change avatar</h4>
+					</div>
+					<div class="ip-modal-body">
+						<div class="btn btn-primary ip-upload"><input type="file" name="file"></div>
+						<button class="btn btn-primary ip-webcam">Webcam</button>
+						<!-- <button type="button" class="btn btn-info ip-edit">Edit</button>
+						<button type="button" class="btn btn-danger ip-delete">Delete</button> -->
+						
+						<div class="alert ip-alert"></div>
+						<div class="ip-info">To crop this image, drag a region below and then click "Save Image"</div>
+						<div class="ip-preview"></div>
+						<div class="ip-rotate">
+							<button type="button" class="btn btn-default ip-rotate-ccw" title="Rotate counter-clockwise"><i class="icon-ccw"></i></button>
+							<button type="button" class="btn btn-default ip-rotate-cw" title="Rotate clockwise"><i class="icon-cw"></i></button>
+						</div>
+						<div class="ip-progress">
+							<div class="text">Uploading</div>
+							<div class="progress progress-striped active"><div class="progress-bar"></div></div>
+						</div>
+					</div>
+					<div class="ip-modal-footer">
+						<div class="ip-actions">
+							<button class="btn btn-success ip-save">Save Image</button>
+							<button class="btn btn-primary ip-capture">Capture</button>
+							<button class="btn btn-default ip-cancel">Cancel</button>
+						</div>
+						<button class="btn btn-default ip-close">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end Modal -->
+		
+		<hr><h2>Inline</h2>
+
+		<!-- Inline version -->
+		<div id="avatarInline">
+			<div class="btn btn-primary ip-upload"><input type="file" name="file"></div>
+			<button type="button" class="btn btn-primary ip-webcam">Webcam</button>
+			<!-- <button type="button" class="btn btn-info ip-edit">Edit</button>
+			<button type="button" class="btn btn-danger ip-delete">Delete</button> -->
+
+			<div class="alert ip-alert"></div>
+			<div class="ip-info">To crop this image, drag a region below and then click "Save Image"</div>
+			<div class="ip-preview"></div>
+			<div class="ip-rotate">
+				<button type="button" class="btn btn-default ip-rotate-ccw" title="Rotate counter-clockwise"><i class="icon-ccw"></i></button>
+				<button type="button" class="btn btn-default ip-rotate-cw" title="Rotate clockwise"><i class="icon-cw"></i></button>
+			</div>
+			<div class="ip-progress">
+				<div class="text">Uploading</div>
+				<div class="progress progress-striped active"><div class="progress-bar"></div></div>
+			</div>
+			<div class="ip-actions">
+				<button class="btn btn-success ip-save">Save Image</button>
+				<button class="btn btn-primary ip-capture">Capture</button>
+				<button class="btn btn-default ip-cancel">Cancel</button>
+			</div>
+		</div>
+		<!-- end Inline -->
+
+
+		<h2>Examples:</h2><ul style="list-style:none;padding:0"><li><a href="index.html">Main Demo</a></li><li><a href="example-modal.html">Modal basic</a></li><li><a href="example-inline.html">Inline basic</a></li><li><a href="example-autoload.html">Autoload image</a></li><li><a href="example-multi.html">Multiple images</a></li><li><a href="example-zero-interface.html" class="active">Zero interface</a></li></ul>
+
+	</div>
+
+	<script> 
+		$(function() {
+			// Avatar setup modal
+			$('#avatarModal').imgPicker({
+				url: 'server/upload_avatar.php',
+				aspectRatio: 1,
+				// deleteComplete: function() {
+				// 	$('#avatar').attr('src', 'assets/img/default-avatar.png');
+				// 	this.modal('hide');
+				// },
+				cropSuccess: function(image) {
+					$('#avatar').attr('src', image.versions.avatar.url);
+					this.modal('hide');
+				}
+			});
+
+			// Avatar setup inline
+			$('#avatarInline').imgPicker({
+				url: 'server/upload_avatar.php',
+				aspectRatio: 1,
+				// deleteComplete: function() {
+				// 	$('#avatar').attr('src', 'assets/img/default-avatar.png');
+				// 	this.modal('hide');
+				// },
+				cropSuccess: function(image) {
+					$('#avatar').attr('src', image.versions.avatar.url);
+					this.modal('hide');
+				}
+			});
+		}); 
+	</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% macro leaderboard(board, user_id) %}
+	<div id="leaderboard" class="clearfix">
+		<header>Student Rankings</header>
+		{# if date is not null %}
+			<span style="font-size:11px"><i class="icon-white icon-info-sign"></i>&ensp;Showing students signed up in {{ date }}</span>
+		{% endif #}
+		{% for student in board %}
+			<div class="row{% if student.user_id == user_id %} active{% endif %}">
+				<div>
+					<img src="/api/user/avatar/{{ student.user_id }}">
+				</div>
+				<div style="text-align:center">
+					<span class="rank">{{ student.rank }}</span>
+				</div>
+				<div>					
+					<span class="name">{{ student.login }}</span><br>
+					<span class="points"><i class="icon-star"></i> {{ student.points }}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endmacro %}
+
+{% macro generic(colour, label, imgsrc, ratio) %}
+	<div class="tile tile-{{ colour }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+		<div class="content" style="text-align:center">
+			{% if imgsrc is not null %}<img src="/img/{{ imgsrc }}">{% endif %}
+		</div>
+		<div class="caption">{{ label }}</div>
+	</div>
+{% endmacro %}
+
+{% macro picture(class, colour, label, imgsrc, ratio, icon) %}
+	<div class="tile tile-{{ colour }} {{ class }}" data-imgsrc="{{ imgsrc }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+			<img></img>
+		<div class="caption">{{ label }}{% if icon is not null %}<span style="float:right"><i class="icon-{{ icon }}"></i></span>{% endif %}</div>
+	</div>
+{% endmacro %}
+
+{% macro classed(class, colour, label, imgsrc, ratio) %}
+	<div class="tile tile-{{ colour }} {{ class }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+		<div class="content" style="text-align:center">
+			{% if imgsrc is not null %}<img src="/img/{{ imgsrc }}">{% endif %}
+		</div>
+		<div class="caption">{{ label }}</div>
+	</div>
+{% endmacro %}
+
+{% macro caption(text) %}
+	<div class="tile" data-ratio="0">
+		<div>{{ text }}</div>
+	</div>
+{% endmacro %}
+
+{% macro custom(colour, label, html, ratio) %}
+	<div>
+		<div class="tile tile-{{ colour }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+			<div class="content">{{ html|raw }}</div>
+			<div class="caption">{{ label }}</div>
+		</div>
+	</div>
+{% endmacro %}

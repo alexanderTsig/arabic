@@ -1,0 +1,343 @@
+.am-body { background: none; color: #666; }
+.am-body .am-body-content-wrapper { border: 0; background: none; }
+.am-main { max-width: 100%; padding: 0; width: 100%; }
+.am-form form { 
+	-moz-border-radius: 0; 
+	-webkit-border-radius: 0; 
+	border-radius: 0; 
+	box-shadow: none; 
+	border: 0px solid #dedede; 
+	padding: 0; 
+	background: none; 
+}
+
+body, html { background-color: #F2F2F2; }
+
+.navbar .brand {
+	padding: 0.65em 0.75em 0.5em 0 !important;
+	font-size: 16px;
+	margin-left: 0;
+	text-shadow: 0 1px 0 #FFFFFF;
+	color: #777;
+}
+.navbar .brand:focus, .navbar .brand:hover { color: #333; }
+.navbar .nav > li > a { font-size: 16px; }
+
+.am-main {
+	visibility:hidden;
+}
+
+/* h1 {
+	display:none;
+} */
+
+h2 {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 1.2em;
+	border: 0;
+	color: #777;
+}
+
+h3 { font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; }
+
+/* aMember doesn't properly hide the payment option where there is only one choice */
+#row-paysys_id {
+	/* display:none; */
+}
+
+#row-paysys_id .element label { padding-left: 45px; }
+#row-product_id_page-0-0 { padding-left: 28px !important; }
+
+form span.error {
+	display:none;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 1em;
+}
+
+.am-form label[class=radio] {
+	margin-bottom:10px;
+}
+
+.am-form span.required {
+	display:none;
+}
+
+.am-form .comment {
+	display:none;
+}
+
+/* Inline CSS relocated from membership.twig */
+table {
+	margin-top:1.12em;
+}
+
+/* .comment, .span.error {
+	display:none
+} */
+
+.comment {
+	display:none;
+}
+
+.dropdown.active {
+	transform:none !important
+}
+
+.am-signup-form label {
+	margin-right:10px !important;
+}
+
+span.error[generated="true"] {
+	margin-top: 5px;
+	color:red;
+}
+
+div.agreement > pre {
+	height:25.5em;
+	overflow:scroll;
+	overflow-x:hidden;
+}
+
+.am-popup {
+  margin: 0 auto;
+  padding: 10px 20px 20px 20px;
+  position: absolute;
+  text-align: left;
+  z-index: 10001;
+  display: none;
+  background-color: white;
+  border: solid 3px #cccccc;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+.am-popup .am-popup-close-icon {
+  display: inline-block;
+  background: url("../img/modal-close.png");
+  background-repeat: none;
+  width: 17px;
+  height: 17px;
+  margin: 2px;
+  float: right;
+  text-decoration: none;
+}
+.am-popup .am-popup-header {
+  font-size: 110%;
+  font-weight: bold;
+  overflow: hidden;
+  margin: 0 0 1em 0;
+}
+
+
+.btn-success, button.btn.btn-large, input.btn.btn-large[type="submit"] { 
+	color:#ffffff;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color:#5bb75b;
+	background-image:-moz-linear-gradient(top, #62c462, #51a351);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+	background-image:-webkit-linear-gradient(top, #62c462, #51a351);
+	background-image:-o-linear-gradient(top, #62c462, #51a351);
+	background-image:linear-gradient(to bottom, #62c462, #51a351);
+	background-repeat:repeat-x;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+	border-color:#51a351 #51a351 #387038;
+	border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	*background-color:#51a351;
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	padding: 5px 15px;
+}
+
+button.btn.btn-large, input.btn.btn-large[type="submit"]
+
+button.btn.btn-large:hover, input.btn.btn-large[type="submit"]:hover, button.btn.btn-large:focus, input.btn.btn-large[type="submit"]:focus, button.btn.btn-large:active, input.btn.btn-large[type="submit"]:active { 
+	color:#ffffff;
+	background-color:#51a351;
+	*background-color:#499249;
+}
+
+button.btn.btn-large:active, input.btn.btn-large[type="submit"]:active { background-color:#408140 \9; }
+
+#row-product_id_page-0-0 label span.required {}
+
+.am-form fieldset:first-child legend:first-child {
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+}
+.am-form fieldset legend {
+	background: none;
+	color: #aaa;
+	text-shadow: none;
+	padding: 0; 
+}
+
+form.am-signup-form #row-product_id_page-0-0, div#row-paysys_id {
+	border: 1px solid #dedede;
+	padding: 7px 0 20px 0;
+}
+
+.hide { display: none !important; }
+.clear { clear: both; }
+
+div.no-label label.control-label { width: 100%; text-align: left; }
+div.no-label > label.control-label, div#row-paysys_id > label.control-label { display: none;}
+.am-form div.element { margin-left: 20%; }
+.am-form div.no-label div.element, div#row-paysys_id div.element { margin: 0; width: 100%; }
+.am-product-desc { margin-left: 25px; }
+.am-product-title { margin-left: 8px; }
+.am-paysystem-desc { display: inline; }
+.am-paysystem-title { display: none; }
+div#row-paysys_id { padding-bottom: 5px; }
+div#row-buttons div.controls { /* float: right; */ margin: 0 auto; text-align: center;  }
+div#row-buttons div.controls a { padding-right: 20px; }
+/*
+div#row-coupon-0 { margin: 0 auto; float: left; margin-top: 20px; width: 100%; }
+div#row-coupon-0 label.control-label { width: 27%; text-align: right; margin-top: 5px;}
+div#row-coupon-0 div.controls {}
+*/
+
+div#row-paysys_id img.comodo {
+    float: right;
+    position: relative;
+    right: 20px;
+    top: 25px;
+    width: 110px;
+}
+
+#social_coupon_options {}
+
+.am-layout-two-coll { 
+	background: #fff; 
+	border-radius: 0;
+	-moz-border-radius: 0; 
+	-webkit-border-radius: 0; 
+}
+.am-layout-two-coll-top, .am-layout-two-coll-bottom { display: none; }
+.am-layout-two-coll .am-coll-left .am-coll-content, .am-layout-two-coll .am-coll-right .am-coll-content { margin: 0; }
+.am-layout-two-coll .am-coll-left, .am-layout-two-coll .am-coll-right { padding: 0 3%; width: 44%; }
+
+
+.canvas-login {
+    width: 450px;
+	 margin: 0 auto; 
+}
+
+.canvas-login > header {
+	height:50px;
+	line-height:50px;
+	border: 1px solid #ccc;
+	background-color: #f6f6f6;
+	background-image: linear-gradient(to bottom, #fafafa, #f2f2f2);
+	background-repeat: repeat-x;
+	border-radius:4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0; 
+	-webkit-border-radius: 4px 4px 0 0; 
+	padding:0 10px;
+}
+
+.canvas-login > header > h3 {
+	line-height:50px;
+	margin:0;
+	text-transform:uppercase;
+	font-size:1.2em;
+	color:#555;
+	letter-spacing:0.2pt;
+	float:left;
+}
+
+.canvas-login > header > .btn-toolbar {
+	float:right;
+	margin:0;
+}
+
+.am-login-form, .am-sendpass-form {
+	position:relative;
+	top:-1px;
+	background:#fff;
+	border:solid 1px #ccc;
+	border-radius:0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px; 
+	-webkit-border-radius: 0 0 4px 4px; 	
+	padding:18px 20px 0 20px;
+}
+
+.canvas-login .form-actions div.span9 {
+	/* FIXME: there ought to be a better way of vertically aligning the text to the log in button ... */
+	padding-top:10px;
+}
+
+.canvas-login > #footer {
+	text-align:center;
+	color:#999;
+}
+
+
+.am-login-form .form-horizontal .control-label { width: 100%; text-align: left; }
+.form-horizontal .control-label { padding-top: 11px; }
+.am-login-form .remember-password { margin: 0; }
+.am-login-form .form-horizontal .form-actions { padding-left: 20px; }
+
+div.errors ul, ul.error, ul.errors { margin: 1em 0; }
+#sendpassForm { display: none; }
+.am-login-form label.element-title { display: inline; }
+
+h1.reg, h2.reg, #masthead ul.features { display: none; }
+
+textarea:focus,
+input[type=text]:focus,
+input[type=checkbox]:focus,
+input[type=radio]:focus,
+input[type=password]:focus {
+  background-color: #fff;
+}
+
+.am-block, .am-aff-banner-preview, select, textarea, input[type="text"], input[type="password"] { 
+	-moz-border-radius: 0; 
+	-webkit-border-radius: 0; 
+	border-radius: 0; 
+	box-shadow: none; 
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { height: auto; }
+
+.grid th {
+    background-color: #FAFAFA;
+    background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+    background-repeat: repeat-x;
+    border: 1px solid #D4D4D4;
+	-moz-border-radius: 0; 
+	-webkit-border-radius: 0; 
+	border-radius: 0; 
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    min-height: 40px;
+    padding-left: 8px;
+    padding-right: 20px;
+	 text-shadow: none;
+	 color: #444;
+}
+
+.grid th a { text-shadow: none; color: #444; }
+
+.grid td { border-color: #ddd; }
+.grid-container { border: 0; margin-bottom: 0; box-shadow: none; }
+
+.table caption + thead tr:first-child th, .table caption + thead tr:first-child td, .table colgroup + thead tr:first-child th, .table colgroup + thead tr:first-child td, .table thead:first-child tr:first-child th, .table thead:first-child tr:first-child td { border-top: 1px solid #D4D4D4; }
+
+.am-form span.error { padding: 6px 0 0 6px; }
+
+form.am-signup-form .am-product-terms { display: none; }
+
+form.am-signup-form .product { background: #dce6f2; color: #0070c0; padding: 10px 15px 0; min-height: 150px; }
+form.am-signup-form h2, form.am-signup-form h4 { color: #0070c0; font-weight: bold !important; margin-bottom: 0 !important; line-height: 1.25em; }
+form.am-signup-form .product-image { float: left; margin-right: 25px;  }
+form.am-signup-form .guarantee-image { float: right; margin-top: 16px; }
+#member-resources li {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    margin: 0 0 2em;
+    padding: 0.5em;
+}
+#member-resources li div {}
+#member-resources li a { font-size: 1.2em; }

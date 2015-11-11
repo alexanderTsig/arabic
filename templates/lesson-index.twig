@@ -1,0 +1,80 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% import "macro/tips.twig" as tip %}
+
+{% block template %}lessons{% endblock %}
+
+{% block title %}Level {{ level }}{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+	{{ tip.showall(tips) }}
+	<form class="well form-inline" style="-moz-user-select:none">
+		<label class="checkbox">
+			<input id="show-old-lessons" type="checkbox">&ensp;Show previously completed lessons
+		</label>
+		&emsp;
+		<label class="checkbox">
+			<input id="arabic-titles" type="checkbox">&ensp;Show lesson titles in Arabic
+		</label>	
+		&emsp;
+		<label class="checkbox">
+			<input id="starred" type="checkbox">&ensp;Show only starred lessons
+		</label>
+	</form>
+
+	{% if progress == 100 %}
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Congratulations, {{ name }}!</strong> You have completed the entire course.
+	</div>
+	{% elseif level < user_level %}
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Congratulations, {{ name }}!</strong> You have completed all of the lessons. You may now proceed to <a href="/level/{{ user_level }}">Level {{ user_level }}</a>.
+	</div>
+	{% endif %}
+	
+	{% for item in lessons %}
+	<div {% if item.lesson < max_lesson %}style="display:none"{% endif %} data-level="{{ item.level }}" data-lesson="{{ item.lesson }}"
+				class="lesson{% if not item.starred is empty %} starred{% endif %}{% if item.locked == true %} locked{% endif %}{% if not item.test_status is empty %} {{ item.test_status }}{% endif %}">
+		<h2>
+			<img src="/img/glyphicons_200_download.png">
+			<span lang="en">{{ item.title_en }}</span><span lang="ar" dir="rtl" style="display:none">{{ item.title_ar }}</span>
+			<div class="star"></div>
+			<span style="float:right;display:inline-block;text-align:center;width:2em;padding-right:15px">
+			{% if item.test_status == 'passed' %}
+				<i class="icon-check"></i>
+			{% elseif item.test_status == 'failed' %}
+				<i class="icon-check-empty"></i>
+			{% endif %}
+			</span>
+			{% if not item.score is empty %}<span style="width:2.6em;text-align:right;margin-right:10px;float:right;display:inline-block;color:#fff;background:#aaa;font-size:smaller;padding:0 10px">{{ item.score }}%</span>{% endif %}
+		</h2>
+
+		<div>
+			<span lang="en">{{ item.description|raw }}</span>{% if not item.description_ar is empty %}<span lang="ar" dir="rtl">{{ item.description_ar|raw }}</span>{% endif %}
+
+			<div>
+				<span>
+				{% if item.lesson <= max_lesson %}
+					{% if item.test_status == 'passed' %}
+						<i class="icon-ok"></i> You have sucessfully passed the exam for this lesson with a score of {{ item.score }}% :)
+					{% elseif item.test_status == 'failed' %}
+						<i class="icon-remove"></i> You last scored {{ item.score }}% in the exam. Please try again!
+					{% elseif item.test_status == 'skipped' and (item.level < user_level or (item.level == user_level and item.lesson < max_lesson)) %}
+						<i class="icon-info-sign"></i> You are not required to complete this lesson in order to advance
+					{% endif %}
+				{% else %}
+					<i class="icon-lock"></i> You must complete <strong>Lesson {{ item.lesson - 1 }}</strong> to unlock this lesson
+				{% endif %}
+				</span>
+				<a class="btn btn-primary" href="/level/{{level }}/{{ item.lesson }}/video">Watch Video</a>
+				<a class="btn btn" href="/level/{{level }}/{{ item.lesson }}/exercise">View Engage</a>
+				<a class="btn btn" href="/level/{{level }}/{{ item.lesson }}/exam"></i>View Unlock</a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+
+{% endblock %}

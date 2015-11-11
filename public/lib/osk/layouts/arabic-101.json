@@ -1,0 +1,66 @@
+[
+	[
+		{ "id": "key_grave",  "label": "\u0630", "sLabel": "\u0651" },
+		{ "id": "key_1",      "label": "\u0031", "sLabel": "\u0021" },
+		{ "id": "key_2",      "label": "\u0032", "sLabel": "\u0040" },
+		{ "id": "key_3",      "label": "\u0033", "sLabel": "\u0023" },
+		{ "id": "key_4",      "label": "\u0034", "sLabel": "\u0024" },
+		{ "id": "key_5",      "label": "\u0035", "sLabel": "\u0025" },
+		{ "id": "key_6",      "label": "\u0036", "sLabel": "\u005E" },
+		{ "id": "key_7",      "label": "\u0037", "sLabel": "\u0026" },
+		{ "id": "key_8",      "label": "\u0038", "sLabel": "\u002A" },
+		{ "id": "key_9",      "label": "\u0039", "sLabel": "\u0027" },
+		{ "id": "key_0",      "label": "\u0030", "sLabel": "\u0028" },
+		{ "id": "key_minus",  "label": "\u002D", "sLabel": "\u005F" },
+		{ "id": "key_equals", "label": "\u003D", "sLabel": "\u002B" },
+		{ "id": "key_backspace", "label": "\u21E6", "sLabel": "\u21E6", "func": "backspace", "sFunc": "backspace" }
+	],
+	[
+		{ "id": "key_tab",                "label": "Tab"   , "sLabel": "Tab"          },
+		{ "id": "key_q",                  "label": "\u0636", "sLabel": "\u064E"       },
+		{ "id": "key_w",                  "label": "\u0635", "sLabel": "\u064B"       },
+		{ "id": "key_e",                  "label": "\u062B", "sLabel": "\u064F"       },
+		{ "id": "key_r",                  "label": "\u0642", "sLabel": "\u064C"       },
+		{ "id": "key_t",                  "label": "\u0641", "sLabel": "\u0644\u0625" },
+		{ "id": "key_y",                  "label": "\u063A", "sLabel": "\u0625"       },
+		{ "id": "key_u",                  "label": "\u0639", "sLabel": "\u2018"       },
+		{ "id": "key_i",                  "label": "\u0647", "sLabel": "\u00F7"       },
+		{ "id": "key_o",                  "label": "\u062E", "sLabel": "\u00D7"       },
+		{ "id": "key_p",                  "label": "\u062D", "sLabel": "\u061B"       },
+		{ "id": "key_leftsquarebracket",  "label": "\u062C", "sLabel": "\u003C"       },
+		{ "id": "key_rightsquarebracket", "label": "\u062F", "sLabel": "\u003E"       },
+		{ "id": "key_backslash",          "label": "\u005C", "sLabel": "\u007C"       } 
+	],
+	[
+		{"id": "key_capslock", "label": "Caps", "sLabel": "Caps","func": "capslock", "sFunc": "capslock"},
+		{ "id": "key_a",           "label": "\u0634", "sLabel": "\u0650"       },
+		{ "id": "key_s",           "label": "\u0633", "sLabel": "\u064D"       },
+		{ "id": "key_d",           "label": "\u064A", "sLabel": "\u005D"       },
+		{ "id": "key_f",           "label": "\u0628", "sLabel": "\u005B"       },
+		{ "id": "key_g",           "label": "\u0644", "sLabel": "\u0644\u0623" },
+		{ "id": "key_h",           "label": "\u0627", "sLabel": "\u0623"       },
+		{ "id": "key_j",           "label": "\u062A", "sLabel": "\u0640"       },
+		{ "id": "key_k",           "label": "\u0646", "sLabel": "\u060C"       },
+		{ "id": "key_l",           "label": "\u0645", "sLabel": "\u002F"       },
+		{ "id": "key_semicolon",   "label": "\u0643", "sLabel": "\u003A"       },
+		{ "id": "key_singlequote", "label": "\u0637", "sLabel": "\u0022"       },
+		{ "id": "key_enter", "label": "Enter", "sLabel": "Enter", "func": "enter", "sFunc": "enter"}
+	],
+	[
+		{"id": "key_rightshift", "label": "Shift", "sLabel": "Shift", "func": "shift", "sFunc": "shift"},
+		{ "id": "key_z",            "label": "\u0626", "sLabel": "\u007E"       },
+		{ "id": "key_x",            "label": "\u0621", "sLabel": "\u0652"       },
+		{ "id": "key_c",            "label": "\u0624", "sLabel": "\u007D"       },
+		{ "id": "key_v",            "label": "\u0631", "sLabel": "\u007B"       },
+		{ "id": "key_b",            "label": "\u0644\u0627", "sLabel": "\u0644\u0622" },
+		{ "id": "key_n",            "label": "\u0649", "sLabel": "\u0622"       },
+		{ "id": "key_m",            "label": "\u0629", "sLabel": "\u2019"       },
+		{ "id": "key_comma",        "label": "\u0648", "sLabel": "\u002C"       },
+		{ "id": "key_period",       "label": "\u0632", "sLabel": "\u002E"       },
+		{ "id": "key_forwardslash", "label": "\u0638", "sLabel": "\u061F"       },
+		{"id": "key_rightshift", "label": "Shift", "sLabel": "Shift", "func": "shift", "sFunc": "shift"}
+	],
+	[
+		{"id": "key_spacebar", "label": "Space", "sLabel": "Space", "func": "space", "sFunc": "space"}
+	]
+]

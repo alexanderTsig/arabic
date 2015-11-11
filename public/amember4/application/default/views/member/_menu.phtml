@@ -1,0 +1,59 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('.am-tabs li:has(ul) > a').prepend(
+        $('<span></span>').addClass('arrow')
+    );
+    $('.am-tabs .has-children > ul').bind('mouseenter mouseleave', function(){
+        $(this).closest('li').toggleClass('active expanded');
+    });
+            
+});
+</script>
+<div class="am-tabs-wrapper">
+<?php
+$m = new Am_View_Helper_Menu();
+$m->setView($this);
+
+echo "<div class=\"navbar\">";
+echo "<div class=\"navbar-inner\">";
+echo "<a class=\"brand\" href=\"/amember4/amember\">Membership</a>";
+
+echo $m->renderMenu($this->di->navigationUser,
+    // ulClass = am-tabs
+    array(
+        'ulClass' => 'nav',
+        'activeClass' => 'active',
+        'normalClass' => 'normal',
+        'disabledClass' => 'disabled',
+        'maxDepth' => 1,
+    )
+);
+
+echo "</div></div>";
+
+?>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('.am-tabs-narrow-switch').click(function(){
+        $('.am-tabs-narrow').toggle();
+    })
+});
+</script>
+<div class="am-tabs-narrow-wrapper">
+    <a class="am-tabs-narrow-switch"><img href="javascript:;" src="<?php p($this->_scriptImg('/menu.png')); ?>" /></a>
+<?php
+$m = new Am_View_Helper_Menu();
+$m->setView($this);
+
+echo $m->renderMenu($this->di->navigationUser,
+    array(
+        'ulClass' => 'am-tabs-narrow',
+        'activeClass' => 'active',
+        'normalClass' => 'normal',
+        'disabledClass' => 'disabled',
+        'maxDepth' => 1,
+    )
+);
+?>
+</div>

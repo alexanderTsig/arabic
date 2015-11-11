@@ -1,0 +1,36 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% import "macro/tiles.twig" as tile %}
+{% block template %}support{% endblock %}
+{% block title %}Help &amp; Support{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="/support">Help &amp; Support</a>
+
+			<ul class="nav">
+				<li><a href="/support/faq">FAQ</a></li>
+				<li><a href="/support/teacher">Teacher Support</a></li>
+				<li><a href="/support/contact">Customer Service</a></li>
+				<li><a href="/support/feedback">Send Feedback</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="tiles" style="padding-top:20px">
+		{{ tile.generic('blue',   'faq',      'question_bubble.png') }}
+		{{ tile.generic('green',  'guidance', 'mortarboard.png') }}
+		{{ tile.generic('purple', 'support',  'support.png') }}
+		{{ tile.generic('orange', 'feedback', 'bullhorn.png') }}
+	</div>
+
+	<div class="tiles tile-captions">
+		{{ tile.caption('Got a question? It might already be covered in our list of Frequently Asked Questions.') }}
+		{{ tile.caption('Struggling with the course material? Seek guidance from our teaching support team.') }}
+		{{ tile.caption('Need a helping hand? Our customer service team is just a click away.') }}
+		{{ tile.caption('How are we doing? Let us know. We\'d love to hear from you.') }}
+	</div>
+{% endblock %}

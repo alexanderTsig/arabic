@@ -1,0 +1,95 @@
+
+{% if board is not empty %}
+{% set flag = 0 %}
+{% for student in board %}
+
+
+<div class="srch-add">
+
+
+
+<div class="srch-prfle-img"><img src="
+http://localhost/path2arabic/code/portal.pathtoarabic.com/public/api/user/avatar/{{ student.user_id }}"/></div>
+<div class="srch-prfle-nme">{{ student.login }}</div>
+
+          <div class="srch-prfle-btn points_{{ student.user_id }}">
+
+                    {% for allfriend in friends %}
+					{% if student.user_id == allfriend.friend_id  %}
+					{% set flag = 1 %}
+					{# break #}
+					{% endif %}
+					
+					{% endfor %}
+					
+					 {% if flag==1 %}
+						<!--<a href="javascript:void(0)" class="frnd" id="{{ student.user_id }}">Friend</a>
+					-->
+					<button class="btn btn-success scs-btn frnd" id="{{ student.user_id }}" type="button">Friends</button>
+					{% else %}
+					<button class="btn btn-default dflt-btn addfrnd" id="{{ student.user_id }}" type="button">Add</button>
+			
+					<!--<a href="javascript:void(0)" class="addfrnd" id="{{ student.user_id }}">Add</a>
+				-->	{% endif %}
+					{% set flag = 0 %}
+					
+</div>
+</div>
+<div class="clear"></div>
+
+		{% endfor %}
+		<div id="srch-add1sa"></div>
+<input type="hidden" id="addsfnd" value="0">
+					<input type="hidden" id="unaddsfnd" value="0">
+
+		{% else %}
+			
+		{% endif %}
+		{% if board is not empty %}
+		{% block javascript %}
+
+	
+
+	<script>
+	
+	$(document).ready(function() {
+
+	$(".addfrnd").click(function(){
+	var searchval=($("#searchfrd").val());
+	var frndid=($(this).attr('id'));
+	var check=$("#addsfnd").val();
+	if(frndid!='' && check==0){
+	$("#addsfnd").val('1');
+		$.ajax({
+                type: "POST",
+                url: "api/user/addfrnd",
+                data: {frndid:frndid},
+                success: function (data) {
+				$("#addsfnd").val('0');
+                 $(".points_"+frndid).html(data);
+                }
+            });
+	}
+	});
+	
+	$(".frnd").click(function(){
+	var searchval=($("#searchfrd").val());
+	var frndid=($(this).attr('id'));
+    var check=$("#unaddsfnd").val();
+	if(frndid!='' && check==0){
+	$("#unaddsfnd").val('1');
+		$.ajax({
+                type: "POST",
+                url: "api/user/frnd",
+                data: {frndid:frndid},
+                success: function (data) {
+				$("#unaddsfnd").val('0');
+                 $(".points_"+frndid).html(data);
+                }
+            });
+	}
+	});
+	});
+	</script>
+	{% endblock %}
+			{% endif %}

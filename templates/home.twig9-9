@@ -1,0 +1,1189 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% import "macro/tiles.twig" as tile %}
+{% import "macro/tips.twig" as tip %}
+
+{% block template %}home{% endblock %}
+{% block title %}Home{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="row-fluid">
+		{% if not renewal_time is empty %}
+		<div class="alert alert-info">
+			 <button type="button" class="close" data-dismiss="alert">&times;</button>
+			 <strong>Warning!</strong> Your membership expires in {{ renewal_time }}. Go to the <a href="/amember4/signup">Membership</a> area to renew.
+		</div>
+		{% endif %}
+
+		{{ tip.showall(tips) }}
+	</div>
+
+	<div class="row-fluid">
+		<div class="span7">
+			<div class="tiles">
+				<div class="tile tile-blue overview" data-ratio="#support-tiles" style="cursor:default">
+					<div class="content">
+					
+						<div style="float:right" id="avatar" class="avatarnew" >
+						
+						<div class="imgmy">
+					        <img style="float:right" class='imgnup' id="avatar"  src="/api/user/avatar/{{ id }}">
+						
+						
+						
+						<button title="Edit avatar" data-ip-modal="#avatarModal" class="btn btn-default edit-avatar" type="button" style="display:none;"><i class="icon-edit1"></i></button></div>
+					
+						</div>
+						<div id="imageupimgs " class="imageupimgs" style="display:none;">
+						
+						
+					<!-- This button opens the avatar modal ( data-ip-modal="#avatarModal" ) -->
+					
+				
+						<a class='chenge-image' id="imgsern" data-ip-modal="#avatarModal" href='#image' >
+						</a>
+						</div>
+						<input type="hidden" value="{{ id }}" id="user_id">
+						
+					
+						
+					
+
+						<span style="font-size:1.2em"><b>{{ name }}</b></span><br>
+						<p>
+							{# Membership Type: {{ product }}<br> #}
+							Total Progress: {{ progress }}%<br>
+							{% if progress < 100 %}
+							Current Level: <a href="/level/{{ user_level }}">Level {{ user_level }}</a><br>
+							Next Available Lesson: <a href="/level/{{ user_level }}/{{ maxlesson }}/video">Lesson {{ maxlesson }}</a>
+							{% else %}
+							Well done! You have completed the course!
+							{% endif %}
+						<p>
+					</div>
+					<div class="caption">Overview</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="support-tiles" class="span5">
+			<div class="tiles">
+				{{ tile.classed('stats', 'teal', 'Stats', 'analysis.png') }}
+				{{ tile.classed('help', 'purple', 'Help', 'support-small.png') }}
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span7">
+				<div id="levels">
+					<div class="tiles">
+						{% set colours = ['green', 'cyan', 'teal', 'orange'] %}
+						{% for item in levels %}
+							{% if loop.index0 > 0 and loop.index0 % 2 == 0 %}
+					</div>
+					<div class="tiles">
+							{% endif %}
+
+							{% set label = 'Level ' ~ item.id %}
+
+							{% if item.id < startlevel %}
+								{% set access_class = 'locked' %}
+								{% set icon = 'lock' %}
+								{% set label = label ~ ' (Skipped)' %}
+							{% elseif item.id > user_level %}
+								{% set access_class = 'locked' %}
+								{% set icon = 'lock' %}
+							{% else %}
+								{% set access_class = 'unlocked' %}
+								{% set icon = 'check-empty' %}
+								{% set label = label ~ ': ' ~ item.progress ~ '%' %}
+							{% endif %}
+
+							{% if access_class == 'unlocked' and item.progress == 100 %}
+								{% set icon = 'check' %}
+							{% endif %}
+
+							{# tile.classed(access_class, colours[loop.index0], label, icon, 0.6) #}
+							{{ tile.picture(access_class, colours[loop.index0], label, '/img/tile-level-' ~ (loop.index0 + 1) ~ '.jpg', 0.6, icon) }}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		
+			<div class="span5" style="display:none;">
+				{{ tile.leaderboard(board, id,name) }}
+			</div>
+		</div>
+
+
+	</div>
+  
+
+
+  
+		
+
+<div class="navbar clearfix">
+
+	<!-- Avatar Modal -->
+	<div class="ip-modal" id="avatarModal">
+		<div class="ip-modal-dialog">
+			<div class="ip-modal-content">
+				<div class="ip-modal-header">
+					<a class="ip-close" title="Close">&times;</a>
+					<h4 class="ip-modal-title">Change Avatar</h4>
+				</div>
+				<div class="ip-modal-body">
+					<div class="btn btn-primary ip-upload">Upload <input type="file" name="file" class="ip-file"></div>
+					<!--<button class="btn btn-primary ip-webcam">Webcam</button>-->
+					<button type="button" class="btn btn-info ip-edit">Edit</button>
+					<button type="button" class="btn btn-danger ip-delete">Delete</button>
+				
+					<div class="alert ip-alert"></div>
+					<div class="ip-info">To crop this image, drag a region below and then click "Apply Image".</div>
+					<div class="ip-preview"></div>
+					<div class="ip-rotate">
+						<button type="button" class="btn btn-default ip-rotate-ccw" title="Rotate counter-clockwise"><i class="icon-ccw"></i></button>
+						<button type="button" class="btn btn-default ip-rotate-cw" title="Rotate clockwise"><i class="icon-cw"></i></button>
+					</div>
+					<div class="ip-progress">
+						<div class="text">Uploading</div>
+						<div class="progress progress-striped active"><div class="progress-bar"></div></div>
+					</div>
+				</div>
+				<div class="ip-modal-footer">
+					<div class="ip-actions">
+						<button class="btn btn-success ip-save">Apply</button>
+						<button class="btn btn-primary ip-capture">Capture</button>
+						<button class="btn btn-default ip-cancel">Cancel</button>
+					</div>
+					<button class="btn btn-default ip-close">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+<input type="hidden" id="monthyesr" value="all">
+	<input type="hidden" id="response" value="0"/>
+	<input type="hidden" id="invitefrdsed" value="0"/>
+	<input type="hidden" id="frndserh" value="0"/>
+	<input type="hidden" id="start_limits" value="0"/>
+	<input type="hidden" id="end_limits" value="6"/>
+	<input type="hidden" id="limntfrnd" value="26">	
+	<input type="hidden" id="rsefb" value="0">
+	<input type="hidden" id="fbinputsv" value="0">
+	<input type="hidden" id="serfbinputsv" value="0">
+	<input type="hidden" id="mefrnd" value="0">
+	<input type="hidden" id="meallfrnd" value="0">
+<div id="inpts" style="display:none;">
+<input type="text" id="ninpts">
+<div>
+
+{% endblock %}
+{% block javascript %}
+	{{ parent() }}
+	
+
+	<script>
+
+	
+	 function searchfrd(searchval){
+	 
+	$("#serfbinputsv").val(1);
+	var friend=$("#meallfrnd").val();
+	if(searchval!='' || friend==0){//alert(searchval);
+$("#inpts").html('');
+$("#meallfrnd").val(1);
+	FB.api('/me/friends',{fields: 'email,name,id,location,birthday', offset : 0, limit : 25}, function(response) {
+					$(".find-fb-frnds").show();
+					
+					if(response.data) {
+					response.data = response.data.sort(sortMethod);
+				var res = [];
+	     	$("#fbinputsv").val(0);				
+			$("#meallfrnd").val(0);
+				//var userInfo = document.getElementById('result_friends');
+				   $.each(response.data,function(index,friend) {
+				   var friendname=friend.name.toLowerCase();
+
+		//var searchnew=searchval.charAt(0).toLowerCase() + searchval.slice(1).toLowerCase();
+		console.log(searchval.toLowerCase());
+		//if(s.indexOf("oo") > -1){
+				   if (friendname.indexOf(searchval) >-1) {
+		//if (friendname.match(searchval.toLowerCase())) {		   
+		var friendname=friendname.charAt(0).toUpperCase() + friendname.slice(1).toLowerCase();
+		//		   console.log(friendname);
+				 //  if(friendname.indexOf(searchval) > -1){
+		 $("#inpts").append("<input type='text' value='"+friend.id+','+friendname+"'>");
+		    
+             res[index]=friend.id;$("#fbinputsv").val(0);
+			  }
+			  
+			   
+           });
+		   
+		   if(res==""){
+		   $("#fbinputsv").val(1);
+		   }
+		  
+		   count=0;
+		   if($("#fbinputsv").val()==0){
+		   $( "#inpts input" ).each(function( index ) {
+		   if($(this).val()!=""){
+		   var facenameid=$(this).val().split(',');
+		  // alert(facenameid[0]);
+		
+		if(count==0 || facenameid[0]==""){
+		$(".srch-add1asa1").html('');
+		count++;
+		}
+		var postion=jQuery.inArray(facenameid[0],res);
+		
+		if(postion>=0){
+		
+ var res1= '<div class="srch-addasa"><div class="srch-prfle-imgasa"><img src="https://graph.facebook.com/' + facenameid[0] + '/picture"></div><div class="srch-prfle-nmeasa">'+facenameid[1]+'</div>   <div class="srch-prfle-btn-asa1 "><button class="btn btn-default dflt-btn frnds'+facenameid[0]+'" id="frnds'+facenameid[0]+'" onclick="sendinvites('+facenameid[0]+')" type="button">Invite</button><div class="frnds1'+facenameid[0]+'"></div></div></div></div><div class="clear"></div>';
+		$(".srch-add1asa1").append(res1);
+		res[postion]="";
+		}
+		}else{
+		$(".srch-add1asa1").html('No Result Found');
+		}
+		});
+		}else{
+		$(".srch-add1asa1").html('No Result Found');
+		}
+        } else {
+        //    alert("Error!");
+        }
+    });
+			}else{
+			
+			$("#limntfrnd").val('26');
+			$(".srch-add1asa1").html('');
+				FB.api('/me/friends',{fields: 'email,name,id,location,birthday', offset : 0, limit : 25}, function(response) {
+					$(".find-fb-frnds").show();
+					if(response.data) {
+					$("#mefrnd").val(1);
+					response.data = response.data.sort(sortMethod);
+					console.log(response);
+		//var userInfo = document.getElementById('result_friends');
+           $.each(response.data,function(index,friend) {
+		      var res='<div class="srch-addasa"><div class="srch-prfle-imgasa"><img src="https://graph.facebook.com/' + friend.id + '/picture"></div><div class="srch-prfle-nmeasa">'+friend.name+'</div>   <div class="srch-prfle-btn-asa1 "><button class="btn btn-default dflt-btn frnds'+friend.id+'" id="frnds'+friend.id+'" onclick="sendinvites('+friend.id+')" type="button">Invite</button><div class="frnds1'+friend.id+'"></div></div></div></div><div class="clear"></div>';
+		
+              $(".srch-add1asa1").append(res);
+           });
+        } else {
+        //    alert("Error!");
+        }
+    });
+			}
+  
+  }
+	
+	function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 
+	$(document).ready(function() { 
+	$(".span5").show();
+
+	$(".serch").click(function(){
+
+	$("#sendsinvitefrid").val('');
+	$("#searchfrd").val('');
+	$("#appfrndall").css("display","none");
+	$("#appfrnd").css("display","none");
+	
+	});
+		$(".send-invte").click(function(){
+
+	$("#sendsinvitefrid").val('');
+	$("#appfrndall").css("display","none");
+	$("#appfrnd").css("display","none");
+
+	});
+
+
+
+$(".srch-add1asa").scroll(function () {
+if($("#serfbinputsv").val()==0){
+curOffset=$("#limntfrnd").val();
+
+if($("#rsefb").val()==0){
+//  if ($(document).height() - 100 <= $(window).scrollTop() + $(window).height())
+  {
+  $("#rsefb").val('1');
+   FB.api('/me/friends',{fields: 'name,id,location,birthday', offset : curOffset, limit : 25}, function(response) {
+						$(".find-fb-frnds").show();
+        if(response.data) {
+		response.data = response.data.sort(sortMethod);
+		console.log(response);
+		$("#rsefb").val('0');
+		curOffset=parseInt(curOffset)+parseInt(curOffset);
+		$("#limntfrnd").val(curOffset);
+		//var userInfo = document.getElementById('result_friends');
+           $.each(response.data,function(index,friend) {
+		      var res='<div class="srch-addasa"><div class="srch-prfle-imgasa"><img src="https://graph.facebook.com/' + friend.id + '/picture"></div><div class="srch-prfle-nmeasa">'+friend.name+'</div>   <div class="srch-prfle-btn-asa1 "><button class="btn btn-default dflt-btn frnds'+friend.id+'" id="frnds'+friend.id+'" onclick="sendinvites('+friend.id+')" type="button">Invite</button><div class="frnds1'+friend.id+'"></div></div></div></div><div class="clear"></div>';
+		
+              $(".srch-add1asa1").append(res);
+           });
+        } else {
+         //   alert("Error!");
+        }
+    });
+}}}});
+	$(".srch-add1").scroll(function () {
+ // if ($(document).height() - 100 <= $(window).scrollTop() + $(window).height()) 
+  {
+    var searchval=($("#searchfrd").val());
+	var response=$("#response").val();
+	
+	if($("#searchfrd").val()!='' && response==0){
+	$("#response").val('1');
+	var monts =$("#searchfrd").val();
+	var start_limit=$("#start_limits").val();
+	var end_limit=$("#end_limits").val();
+	$.ajax({
+                type: "POST",
+				url: "api/user/searchfrndwekall",
+                data: {searchval:searchval,start_limit:parseInt(start_limit),end_limit:parseInt(end_limit),monts:monts},
+                success: function (data) {
+				var ndata=data.split("?");
+				$("#response").val('0');
+				$("#appfrnd").css("display","none");
+				$("#start_limits").val(parseInt($("#end_limits").val()));
+				$("#end_limits").val(parseInt($("#end_limits").val())+5);
+				if(data!='' && ndata[0]!='No'){
+				$("#srch-add1sa").append(data);
+				}else{
+			//	$("#appfrnd").html("No Results Found");
+			//	$("#appfrnd").css("display","block");
+				$(".srch-add1").css("display","block");
+			$(".srch-add1").html("No Results Found ");
+				}
+                }
+            });
+   }
+}});
+
+	imgcounter=0;
+
+	$("#sendInvites").click(function(){
+	$(".sendtb").css('display','block');
+	$(".searchtb").css('display','none');
+	$("#serfends").css('display','none');
+	$(".searchtbsendtb").css('display','none');
+	$("#searchfrd").val('');
+	});
+	$("#searchallsfrd").click(function(){
+	$(".searchtb").css('display','block');
+	$(".sendtb").css('display','none');
+	$(".searchtbsendtb").css('display','none');
+	$("#sendsinvitefrid").val('');
+	});
+	$( "#avatar" ).mouseout(function() {
+	$(".edit-cam").css('display','none');
+
+});
+	$( "#imgsern" ).hover(function() {
+
+	 $(".edit-cam").css('display','block');
+	 $("#save_thumb").css("display","none");
+	
+	  imgcounter=0;
+     $(".closefc").css("display","none"); 
+	 $("#filUpload").val('');
+	});
+
+	
+	$("#sendallfriends").click(function(){
+	var email=($("#sendsinvitefrid").val());
+	var emailvalide=validateEmail(email);
+	
+	
+	if($("#sendsinvitefrid").val()!=''){
+	$("#appfrndall").html("Please Wait ...");
+	if(emailvalide==true){
+	$.ajax({
+                type: "POST",
+                url: "api/user/sendinvitefrnd",
+                data: {email:email},
+                success: function (data) {
+				var da=(data.split(':'));
+				
+				if(da[1]=="true}"){
+				$("#appfrndall").css('display','block');
+				$("#appfrndall").html("Invite Send to " +email);
+				//confirmSignout("Invite Send " +email);
+				$("#sendsinvitefrid").val('');
+				
+				}
+				if(da[1]=="false}"){
+				$("#appfrndall").css('display','block');
+				$("#appfrndall").html("User already registered.");
+				//confirmSignout("User already register");
+				}
+				//$("#serfends").html(data);
+             //     window.location.reload();
+                }
+            });
+			}else{
+			$("#appfrndall").css('display','block');
+			$("#appfrndall").html("Incorrect Email");
+		///	confirmSignout("Incorrect Email");
+			}
+	}else{
+	$("#appfrndall").css('display','block');
+	$("#appfrndall").html("Field can not be empty .");
+	//confirmSignout("Fields can not be empty ?");
+	}
+	});
+	 
+	
+	$('#sendsinvitefrid').keyup(function (e){ 
+    if(e.keyCode == 13){
+	var email=($("#sendsinvitefrid").val());
+	var emailvalide=validateEmail(email);
+	
+	
+	if($("#sendsinvitefrid").val()!=''){
+	if(emailvalide==true){
+	$.ajax({
+                type: "POST",
+                url: "api/user/sendinvitefrnd",
+                data: {email:email},
+                success: function (data) {
+				var da=(data.split(':'));
+				
+				if(da[1]=="true}"){
+				$("#appfrndall").css('display','block');
+			$("#appfrndall").html("Invite Send to " +email);
+			//	confirmSignout();
+				$("#sendsinvitefrid").val('');
+				
+				}
+				if(da[1]=="false}"){
+					$("#appfrndall").css('display','block');
+			$("#appfrndall").html("User already register");
+			//	confirmSignout("User already register");
+				}
+				//$("#serfends").html(data);
+             //     window.location.reload();
+                }
+            });
+			}else{
+			$("#appfrndall").css('display','block');
+			$("#appfrndall").html("Incorrect Email");
+			
+			}
+	}else{
+	$("#appfrndall").css('display','block');
+			$("#appfrndall").html("Field can not be empty. ");
+			
+	//confirmSignout("Fields can not be empty ?");
+	}
+	}});
+	
+	$("#searchfriends").click(function(){
+	var searchval=($("#searchfrd").val());
+	
+	if(searchval!=''){
+	$("#frndserh").val('1');
+	var start_limit=$("#start_limits").val(0);
+	var end_limit=$("#end_limits").val(6);
+	var start_limit=$("#start_limits").val();
+	var end_limit=$("#end_limits").val();
+	$("#frndserh").val('0');
+	$.ajax({
+                type: "POST",
+                url: "api/user/searchfrnd",
+                data: {searchval:searchval,start_limit:start_limit,end_limit:end_limit},
+                success: function (data) {
+				var ndata=data.trim();
+				if(ndata!=" " && ndata!= null && ndata!="" && typeof(ndata)!="" && typeof(ndata) != "undefined"){
+				$(".srch-add1").html(ndata);
+				$(".srch-add1").css("display","block");
+				$("#appfrnd").css("display","none");
+				$("#serfends").css('display','block');
+				$(".srch-add11").css("display","none");
+				}else{
+				
+				$(".srch-add1").html(ndata);
+				$("#serfends").css('display','none');
+				//$("#appfrnd").css("display","block");
+				//confirmSignout("No Results Found");
+				//$("#appfrnd").html("No Results Found");
+				$(".srch-add11").css("display","block");
+			$(".srch-add11").html("No Results Found ");
+				}
+             //     window.location.reload();
+                }
+            });
+			}else{
+			$(".srch-add11").css("display","block");
+			$(".srch-add11").html("Field can not be empty. ");
+			
+			}
+	});
+	$(".imgmy").mouseover(function() {
+		$(".edit-avatar").css("display","block");
+   });
+  	$(".imgmy").mouseout(function() {
+		$(".edit-avatar").css("display","none");
+   });
+ /*  $('#searchfrd').keyup(function (e) {
+    if(e.keyCode == 13){
+        var searchval=($("#searchfrd").val());
+		
+	if(searchval!='' && $("#frndserh").val()==0){
+		$("#frndserh").val('1');
+		var start_limit=$("#start_limits").val(0);
+		var end_limit=$("#end_limits").val(6);
+		var start_limit=$("#start_limits").val();
+		var end_limit=$("#end_limits").val();
+		$.ajax({
+                type: "POST",
+                url: "api/user/searchfrnd",
+                data: {searchval:searchval,start_limit:start_limit,end_limit:end_limit},
+                success: function (data) {
+				var ndata=data.trim();
+				if(ndata!=" " && ndata!= null && ndata!="" && typeof(ndata)!="" && typeof(ndata) != "undefined"){
+				$(".srch-add1").html(ndata);
+				$(".srch-add1").css("display","block");
+				$("#frndserh").val('0');
+				
+				$("#serfends").css('display','block');
+				} else {
+					$("#frndserh").val('0');
+					$(".srch-add1").html(ndata);
+					$("#serfends").css('display','none');
+				//	confirmSignout("No Results Found");
+				//	$("#appfrnd").css("display","block");
+				//	$("#appfrnd").html("No Results Found");
+				    $(".srch-add1").css("display","block");
+			        $(".srch-add1").html("No Results Found ");
+			
+				}
+             //     window.location.reload();
+                }
+            });
+		}
+    }
+});*/
+
+});
+</script>
+<link rel="stylesheet" type="text/css" href="/css/assets/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="/css/assets/imgpicker.css" />
+<script type="text/javascript" src="/js/assets/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/js/assets/jquery.Jcrop.min.js"></script>
+<script type="text/javascript" src="/js/assets/jquery.imgpicker.js"></script>
+<style>
+.jcrop-holder img{
+width:auto ! important;
+max-width:none;
+}
+</style>
+<script> 
+function mysearchfrd(searchval){
+
+	if(searchval!='' && $("#frndserh").val()==0){
+			$("#frndserh").val('1');
+			var start_limit=$("#start_limits").val(0);
+			var end_limit=$("#end_limits").val(6);
+			var start_limit=$("#start_limits").val();
+			var end_limit=$("#end_limits").val();
+			$.ajax({
+                type: "POST",
+                url: "api/user/searchfrnd",
+                data: {searchval:searchval,start_limit:start_limit,end_limit:end_limit},
+                success: function (data) {
+					var ndata=data.trim();
+					if(ndata!=" " && ndata!= null && ndata!="" && typeof(ndata)!="" && typeof(ndata) != "undefined"){
+						$(".srch-add1").html(ndata);
+						$(".srch-add1").css("display","block");
+						$("#frndserh").val('0');
+						$("#appfrnd").css("display","none");
+						$("#serfends").css('display','block');
+						$(".srch-add11").css("display","none");
+						$("#start_limits").val(parseInt($("#end_limits").val()));
+				        $("#end_limits").val(parseInt($("#end_limits").val())+5);
+				
+					}else{
+						$("#frndserh").val('0');
+						$(".srch-add1").css("display","none");
+						$(".srch-add1").html(ndata);
+					//	$("#appfrnd").css("display","block");
+						$("#serfends").css('display','none');
+					//	$("#appfrnd").html("No Results Found");
+						$(".srch-add11").css("display","block");
+			            $(".srch-add11").html("No Results Found ");
+					}
+				}
+            });
+			}
+  
+}
+  
+    jQuery(document.body).on('click', '.rmvsfrds', function(event) {
+    	var id=$(this).attr('id').split('_');
+		if(id[1]!=''){
+	//	var n=confirmSignout("Are you sure want to unfriend this user ?");
+		
+//	$(".btn-primary").attr('id',$(this).attr('id'));
+	//	if(confirmSignout("Are you sure want to unfriend this user ?")){
+		$.ajax({
+                type: "POST",
+                url: "api/user/frnd",
+                data: {frndid:id[1]},
+                success: function (data) {
+					var ndata=data.trim();
+					$("."+id[0]+"_"+id[1]).remove();
+					$.ajax({
+                type: "POST",
+                url: "api/user/myfriend",
+               
+                success: function (data) {
+				if(data!=""){
+				$("#serfbinputsv").val(0);
+				$(".stdnt-rank-part").html(data);
+				
+				
+				}
+				}
+            });
+				}
+            });
+	//		}
+		}
+});
+		function confirmSignout(signoutUrl) {
+		bootbox.confirm(signoutUrl, function(result) {
+			
+			return result;
+		});
+	}
+$(document).ready(function() {
+    
+		
+		if($(".alert-block").html()){
+			$(".back").css("top","876px");
+			$(".back1").css("top","876px");
+			$(".ladimgs").css("top","800px");
+			alert('hello');
+		} else {
+			$(".back").css("top","753px");
+			$(".back1").css("top","753px");
+			$(".ladimgs").css("top","680px");
+			alert('hello1');
+		}
+		var time = function(){return'?'+new Date().getTime()};
+				imgcount=0;
+			// Avatar setup
+			$('#avatarModal').imgPicker({
+			
+				url: 'server/upload_avatar.php',
+				aspectRatio: 1, // Crop aspect ratio
+				// Delete callback
+				deleteComplete: function() {
+				
+					$('.imgnup').attr('src', location.protocol + '//'+location.host+'/path2arabic/code/public/img/337.jpg');
+					$(".brder-img").prop('src',location.protocol + '//'+location.host+'/path2arabic/code/public/img/337.jpg');
+					this.modal('hide');
+				},
+				// Crop success callback
+				cropSuccess: function(image) {
+			
+				console.log(image);
+				 image.versions.avatar.url=	location.protocol + '//'+location.host+'/path2arabic/code/public/img/'+$("#user_id").val()+'.png';
+			
+				$('.imgnup').load(function() { console.log("loaded"); });
+				$('.imgnup').prop('src', image.versions.avatar.url+"?version="+Math.random());
+				$(".brder-img").prop('src', image.versions.avatar.url+"?version="+Math.random());
+					this.modal('hide');
+				},
+				// Send some custom data to server
+				data: {
+					key: 'value',
+					Userid:$("#user_id").val()
+				}
+			});
+	
+	
+	
+	$(".serch1").click(function(){
+		$(".search-main-new1as").show();
+		$(".complte-frnds-main").hide();
+		$("#appfrndall").hide();
+		$(".send-invte-main").hide();
+		$(".find-fb-frnds").hide();
+		$(".container-fb-frnds").show();
+		$(".stdnt-rank-part").hide();
+		$(".btns").hide();
+		$("#searchfrd").val('');
+		$(".srch-add1").html('');
+		$(".srch-add1").hide();
+		$(".srch-add11").hide();
+		$(".tabs").hide();
+	
+	});
+  
+  
+	$( ".drop-menu" ).click(function() {
+		$( ".btns-new" ).slideToggle( "slow", function() {
+	});
+
+});
+
+	$( ".btns-new li" ).click(function() {
+		$( ".btns-new" ).slideToggle( "slow", function() {
+		});
+	});
+ 
+  
+
+  $(".back-new").click(function(){
+  	    $(".week").removeClass('active');
+		$(".alltimes").removeClass('active');
+	   $(".month").parent().css("text-decoration","underline");
+		$(".alltimes").parent().css("text-decoration","underline");
+			
+		        	$("#loadimage").show();
+		$.ajax({
+                type: "POST",
+                url: "api/user/myfriend",
+               
+                success: function (data) {
+					$(".complte-frnds-main").show();
+				$(".search-main-new1as").hide();
+				$(".btns").show();
+				$(".tabs").show();
+				$(".stdnt-rank-part").show();
+				$(".send-invte-main").hide();
+				$(".send-invte").show();
+				$(".serch").show();
+				if(data!=""){
+					$("#loadimage").hide();
+				$("#serfbinputsv").val(0);
+				$(".stdnt-rank-part").html(data);
+				
+				
+				}
+				}
+            });
+	});
+	$(".back").click(function(){
+       	$(".week").removeClass('active');
+		$(".alltimes").removeClass('active');
+			  $(".month").parent().css("text-decoration","underline");
+		$(".alltimes").parent().css("text-decoration","underline");	         
+	    $("#loadimage").show();
+		
+		$.ajax({
+                type: "POST",
+                url: "api/user/myfriend",
+               
+                success: function (data) {
+				if(data!=""){
+					$("#loadimage").hide();
+				$("#serfbinputsv").val(0);
+				$(".stdnt-rank-part").html(data);
+						 $(".complte-frnds-main").show();
+				$(".search-main-new1as").hide();
+				$(".btns").show();
+				$(".tabs").show();
+				$(".stdnt-rank-part").show();
+				$(".send-invte-main").hide();
+				$(".send-invte").show();
+				$(".serch").show();
+				
+				}
+				}
+            });
+	});
+	$(".back1").click(function(){
+		$(".week").removeClass('active');
+		$(".alltimes").removeClass('active');
+		$(".month").parent().css("text-decoration","underline");
+		$(".alltimes").parent().css("text-decoration","underline");
+		$("#loadimage").show();
+	$.ajax({
+                type: "POST",
+                url: "api/user/myfriend",
+                success: function (data) {
+				$(".search-main-new1as").hide();
+				$(".container-fb-frnds").show();
+				$("#serfbinputsv").val(0);
+				$(".find-fb-frnds").hide();
+				$(".btns").show();
+				$(".tabs").hide();
+				$(".stdnt-rank-part").show();
+				$(".send-invte").show();
+				$(".tabs").show();
+				$(".serch").show();
+				if(data!=""){
+				$("#serfbinputsv").val(0);
+				$("#loadimage").hide();
+				$(".stdnt-rank-part").html(data);
+				
+				
+				}
+				}
+            });
+		
+	});
+  
+	$(".send-invte1").click(function(){
+		$(".search-main-new1as").hide();
+		$(".complte-frnds-main").hide();
+		$(".container-fb-frnds").show();
+		$("#appfrndall").hide();
+		$(".send-invte-main").hide();
+		$(".find-fb-frnds").hide();
+		$(".stdnt-rank-part").hide();
+		$(".btns").hide();
+		$(".tabs").hide();
+		$("#sendsinvitefrid").val('');
+		$(".send-invte-main").show();
+	});
+	$(".paddfetchfriends").click(function(){
+		
+		$("#searchfrd1").val('');
+		$(".srch-add1asa1").html("");
+		$("#limntfrnd").val('26');
+		$("#serfbinputsv").val('0');
+				FB.api('/me/friends',{fields: 'email,name,id,location,birthday', offset : 0, limit : 25}, function(response) {
+					$(".find-fb-frnds").show();
+					if(response.data) {
+					response.data = response.data.sort(sortMethod);
+					$("#mefrnd").val(1)
+					console.log(response);
+		
+           $.each(response.data,function(index,friend) {
+		      var res='<div class="srch-addasa"><div class="srch-prfle-imgasa"><img src="https://graph.facebook.com/' + friend.id + '/picture"></div><div class="srch-prfle-nmeasa">'+friend.name+'</div>   <div class="srch-prfle-btn-asa1 "><button class="btn btn-default dflt-btn frnds'+friend.id+'" id="frnds'+friend.id+'" onclick="sendinvites('+friend.id+')" type="button">Invite</button><div class="frnds1'+friend.id+'"></div></div></div></div><div class="clear"></div>';
+		
+              $(".srch-add1asa1").append(res);
+           });
+        } else {
+        
+        }
+    });
+		$(".search-main-new1as").hide();
+		$(".complte-frnds-main").hide();
+		$(".container-fb-frnds").hide();
+		$(".send-invte-main").hide();
+		$(".find-fb-frnds").show();
+		$(".stdnt-rank-part").hide();
+		$(".btns").hide();
+		$(".tabs").hide();
+		$(".send-invte-main").hide();
+	});
+	  
+	$(".logout").click(function(){
+	   
+		FB.logout(function(){
+		   
+			window.location.href="<?php echo $this->Html->url(array('controller'=>'users','action'=>'logout'));?>";
+		});
+	   
+	});
+	 
+});
+      
+    
+    
+   window.fbAsyncInit = function() {
+        FB.init({
+            appId: '1515700912005058', // App ID
+			xfbml: true,
+            //channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+            status: true, // check login status
+            cookie: true,
+           version: 'v2.0'			// enable cookies to allow the server to access the session
+              // parse XFBML
+        });
+
+        // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+        // for any auth related change, such as login, logout or session refresh. This means that
+        // whenever someone who was previously logged out tries to log in again, the correct case below
+        // will be handled.
+
+        FB.Event.subscribe('auth.authResponseChange', function(response) {
+            // Here we specify what we do with the response anytime this event occurs.
+
+           /* if (response.status === 'connected') {
+                // The response object is returned with a status field that lets the app know the current
+                // login status of the person. In this case, we're handling the situation where they
+                // have logged in to the app.
+
+
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                // In this case, the person is logged into Facebook, but not into the app, so we call
+                // FB.login() to prompt them to do so.
+                // In real-life usage, you wouldn't want to immediately prompt someone to login
+                // like this, for two reasons:
+                // (1) JavaScript created popup windows are blocked by most browsers unless they
+                // result from direct user interaction (such as a mouse click)
+                // (2) it is a bad experience to be continually prompted to login upon page load.
+                FB.login();
+            } else {
+                // In this case, the person is not logged into Facebook, so we call the login()
+                // function to prompt them to do so. Note that at this stage there is no indication
+                // of whether they are logged into the app. If they aren't then they'll see the Login
+                // dialog right after they log in to Facebook.
+                // The same caveats as above apply to the FB.login() call here.
+                FB.login();
+            }*/
+        });
+};
+
+
+    // Load the SDK asynchronously
+    (function(d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+
+    // Here we run a very simple test of the Graph API after login is successful.
+    // This testAPI() function is only called in those cases.
+   
+    
+    function login() {
+
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                // the user is logged in and has authenticated your
+                // app, and response.authResponse supplies
+                // the user's ID, a valid access token, a signed
+                // request, and the time the access token
+                // and signed request each expire
+                var uid = response.authResponse.userID;
+                var accessToken = response.authResponse.accessToken;
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                // the user is logged in to Facebook,
+                // but has not authenticated your app
+                FB.login(function(response) {
+                // handle the response
+                testAPI();
+                }, {scope: 'email,user_likes'});
+            } else {
+                // the user isn't logged in to Facebook.
+                FB.login(function(response) {
+                    // handle the response
+                    testAPI();
+                }, {scope: 'email,user_likes'});
+            }
+        });
+    }
+
+
+	        function sortMethod(a, b) {
+	            var x = a.name.toLowerCase();
+	            var y = b.name.toLowerCase();
+	            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+	        }
+	 
+	        window.fbAsyncInit = function() {
+	            FB.init({ appId: '1515700912005058',
+				
+	                status: true,
+	                cookie: true,
+	                xfbml: true,
+	                oauth: true
+	            });
+	// friends = @graph.get_connections("me", "friends")
+	            function updateButton(response) {
+	                var button = document.getElementById('fb-auth');
+	 
+	                if (response.authResponse) { // in case if we are logged in
+	                    var userInfo = document.getElementById('user-info');
+					
+	                    FB.api('/me', function(response) {
+						    $(".search-main-new1as").hide();
+							$(".container-fb-frnds").hide();
+							$(".send-invte-main").hide();
+							$(".stdnt-rank-part").hide();
+							$(".send-invte").hide();
+							$(".serch").hide();
+						console.log(response);
+	                     //   userInfo.innerHTML = '<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+	                        button.innerHTML = '<a href="javascript:void(0);">Facebook Logout</a>';
+                    $(".paddfetchfriends").html("<a href='javascript:void(0);'>Facebook Friends</a>")
+                    $(".paddfetchfriends").css("display","block");  	                  
+					  });
+						 curOffset=0;
+	                    // get friends
+						 
+				
+	
+						 //FB.api("/696324687089174/friends", "GET",  array('access_token' => 'CAAKvtsGkb9ABAG17QDoTLFwLuoZCLimdAOidYwGDLZC3RXEC5h1lg2nvBhnJxyRJOwbEwnoUMu2rNC0rloje1ebz9v5Bowc6L7zdspxMRrwGrfZB2p10PXqSZAaRTqZCDH1hH7ZCq8ZAdZBGOrjMpuGahjlPw1gdQVVJp7CjxAQBspcWLJ969rbK5BXIU6Mt5af40ke3i7OMXjBNOn15heleZAw6i5XbuUJQZD'));
+					if($("#mefrnd").val()==0){
+					$("#mefrnd").val(1);
+					FB.api('/me/friends',{fields: 'email,name,id,location,birthday', offset : curOffset, limit : 25}, function(response) {
+					$(".find-fb-frnds").show();
+					if(response.data) {
+					$("#mefrnd").val(1);
+					$('.tabs').hide();
+					response.data = response.data.sort(sortMethod);
+					console.log(response);
+		//var userInfo = document.getElementById('result_friends');
+           $.each(response.data,function(index,friend) {
+		      var res='<div class="srch-addasa"><div class="srch-prfle-imgasa"><img src="https://graph.facebook.com/' + friend.id + '/picture"></div><div class="srch-prfle-nmeasa">'+friend.name+'</div>   <div class="srch-prfle-btn-asa1"><button class="btn btn-default dflt-btn frnds'+friend.id+'" id="frnds'+friend.id+'" onclick="sendinvites('+friend.id+')" type="button">Invite</button><div class="frnds1'+friend.id+'"></div></div></div></div><div class="clear"></div>';
+		
+              $(".srch-add1asa1").append(res);
+           });
+        } else {
+        //    alert("Error!");
+        }
+    });
+	}
+	           
+	 
+	                    button.onclick = function() {
+	                        FB.logout(function(response) {
+	                            window.location.reload();
+	                        });
+	                    };
+	                } else { // otherwise - dispay login button
+	                    button.onclick = function() {
+									FB.getLoginStatus(function(response) {
+					 if (response.session) {
+						 // logged in and connected user, someone you know
+
+					 }
+				 });
+				 
+				  
+										 FB.login(function(response) {
+								if (response.authResponse) {
+								
+						console.log('Welcome!  Fetching your information.... ');
+
+				
+					} else {
+					console.log('User cancelled login or did not fully authorize.');
+						}
+					}, {
+				   scope: 'publish_actions,email,user_likes,publish_actions,public_profile,user_friends,user_about_me,user_actions.books,user_groups,user_status,read_friendlists,read_page_mailboxes,user_interests ', 
+				   return_scopes: true
+				 });
+									
+					
+	                    }
+	                }
+	            }
+	 
+	            // run once with current status and whenever the status changes
+	            FB.getLoginStatus(updateButton);
+	            FB.Event.subscribe('auth.statusChange', updateButton);   
+	        };
+	             
+	        (function() {
+	     //       var e = document.createElement('script'); e.async = true;
+	        //    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+	        //    document.getElementById('fb-root').appendChild(e);
+        }());
+		
+		
+		function sendinvites(senderid) {
+		
+		if($(".frnds"+senderid).attr("disabled")=="" || $(".frnds"+senderid).attr("disabled")==null){
+		 FB.ui({
+          method: 'send',
+          name: 'name',
+		  to:senderid,
+          link: 'http://portal.pathtoarabic.com/',
+          },
+		  function(response) {
+		  console.log(response);
+	     if(response.success==true){
+		 //$(".frnds"+senderid).attr('disabled');
+		   $(".frnds"+senderid).attr("disabled","disabled");
+		    
+          $(".frnds"+senderid).hide();
+		  $(".frnds1"+senderid).html('<button type="button" class="btn btn-success scs-btn new_onw ">Invite Sent</button>');
+		 // $(".frnds"+senderid).removeAttribute("onclick");
+		  // $(".frnds"+senderid).removeAttribute("click");
+		  $(".frnds"+senderid).unbind("click");
+		  $(".frnds"+senderid).unbind("onclick");
+		  $(".frnds"+senderid).attr('onclick','').unbind('click');
+		  $(".frnds"+senderid).attr('click','').unbind('onclick');
+		  $(".frnds"+senderid).prop("onclick", null);
+		  $(".frnds"+senderid).prop("click", null);
+
+        document.getElementById("frnds"+senderid).removeAttribute("onclick");
+		document.getElementById("frnds"+senderid).removeAttribute("click");
+		document.getElementById("frnds"+senderid).onclick = '';
+		$("#frnds"+senderid).off('click');
+		document.getElementById("frnds"+senderid).click = '';
+		$("#frnds"+senderid).off('onclick');
+
+
+		  }
+		  
+		  }
+		  
+		  );
+		  }
+		  
+		}
+		
+		function fetchwmt(monts){
+		//alert(monts);
+		
+		if(monts=='all'){
+		$(".week").removeClass('active');
+		$(".alltimes").addClass('active');
+		$(".month").removeClass('active');
+		$(".month").parent().css("text-decoration","underline");
+		$(".alltimes").parent().css("text-decoration","none");
+		var searchval=($("#searchfrd").val());
+			$("#monthyesr").val('all');		
+			$.ajax({
+                type: "POST",
+                url: "api/user/myfriendmonthall",
+                data: {monts:monts},
+                success: function (data) {
+				if(data!=""){
+				$(".stdnt-rank-part").html(data);
+				}
+				}
+            });
+		}
+		if(monts=='month'){
+		$("#monthyesr").val('month');	
+		$(".week").removeClass('active');
+		$(".alltimes").removeClass('active');
+    	$(".month").addClass('active');
+		$(".alltimes").parent().css("text-decoration","underline");
+		$(".month").parent().css("text-decoration","none");
+		var searchval=($("#searchfrd").val());
+		
+			$.ajax({
+                type: "POST",
+                url: "api/user/myfriendmonthall",
+                data: {monts:monts},
+                success: function (data) {
+				if(data!=""){
+				$(".stdnt-rank-part").html(data);
+				}
+				}
+            });
+		}
+		}
+		
+		
+	        </script>
+{% endblock %}
+ 

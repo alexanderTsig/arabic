@@ -1,0 +1,45 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}support-faq{% endblock %}
+
+{% block title %}Support : FAQ{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="/support">Help &amp; Support</a>
+
+			<ul class="nav">
+					<li class="active"><a href="/support/faq">FAQ</a></li>
+					<li><a href="/support/teacher">Teacher Support</a></li>
+					<li><a href="/support/contact">Customer Service</a></li>
+					<li><a href="/support/feedback">Send Feedback</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div style="line-height:30px;float:right">
+		Select a category:&ensp;
+		<select id="category-nav" style="vertical-align:baseline">
+			{% for cat_title, cat in faq %}
+			<option data-anchor="{{ cat.anchor }}">{{ cat_title }}</option>
+			{% endfor %}
+		</select>
+	</div>
+
+	{% for cat_title, cat in faq %}
+		<h3 id="{{ cat.anchor }}">{{ cat_title }}</h3>
+		{% for q, a in cat %}
+			{% if q != 'anchor' %}
+			<div {% if not a.anchor is empty %}id="{{ a.anchor }}" {% endif %}class="faq">
+				<span>{{ q }}</span>
+				<p>{{ a.text|raw }}</p>
+			</div>
+			{% endif %}
+		{% endfor %}
+
+		<div align="right"><a href="#"><i class="icon-arrow-up"></i> Start of page</a></div> 
+	{% endfor %}
+{% endblock %}

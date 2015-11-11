@@ -1,0 +1,76 @@
+<div class="canvas-login">
+	<header>
+		<h3>Path to Arabic</h3>
+		<div class="btn-toolbar">
+			<a href="http://pathtoarabic.com" class="btn">Home</a>
+			<a href="//portal.pathtoarabic.com/register" class="btn btn-success">Sign up</a>
+		</div>
+	</header>
+
+	<?php echo $this->blocks('login/form/before') ?>
+	<form name="login" method="post" <?php if ($form_action) echo "action='$form_action'"; ?> class="am-form am-login-form">
+
+			<div class="row-fluid" id="recaptcha-row" style="<?php if (empty($recaptcha)): ?>display: none;<?php endif?>" data-recaptcha-theme="<?php echo Am_Di::getInstance()->config->get('login_recaptcha_theme','red');?>">
+				<div class="element-title" style="display:none;"></div>
+				<div class="element am-element-recaptcha" id="recaptcha-element">
+				<?php echo @$recaptcha ?>
+				</div>
+			</div>
+			
+			<div class="row-fluid">
+				<label for="amember-login"><?php __e('Username or Email') ?></label>
+				<input type="text" size="30" id="amember-login" name="amember_login" class="span12" value="<?php p(@$_REQUEST['amember_login']) ?>"> <!-- size needed? -->
+
+				<label for="amember-pass"><?php __e('Password') ?></label>
+				<input type="password" size="30" id="amember-pass" name="amember_pass" class="span12" > <!-- size needed? -->
+
+				<?php if (@$this_config['remember_login'] && !@$this_config['remember_auto']): ?>
+				<br /><br />
+				<label class="element-title" for="remember"><?php __e('Remember my password?') ?></label>
+				<input type="checkbox" class="remember-password" name="remember_login" value="1"<?php if (@$_REQUEST['remember_login']): ?>checked="checked"<?php endif ?>>
+				<?php endif ?>
+						
+			</div>
+						
+			<!-- hidden variables -->
+			<?php echo Am_Controller::renderArrayAsInputHiddens($hidden) ?>
+			<!-- end of hidden -->
+
+			<div class="form-actions">
+				<div class="row-fluid">
+					<div class="span3">
+						<input type="submit" value="<?php __e('Log in') ?>" name="commit" class="btn btn-primary btn-large">
+					</div>
+					<div class="span9">
+						<i class="icon-user"></i> <a data-toggle="modal" role="button" href="#" id="lostpassword">Can't access your account?</a>
+					</div>
+				</div>
+			</div>
+
+	</form>
+
+	<?php echo $this->blocks('login/form/after') ?>
+
+	<form name="sendpass" method="post" action="<?php echo REL_ROOT_URL ?>/sendpass" id="sendpassForm" class="am-form am-login-form">
+		<div class="row-fluid">
+			<label for="sendpass"><?php __e('Enter your E-Mail Address or Username') ?></label>
+			<input type="text" name="login" id="sendpass" size="15" class="span12" />
+		</div>
+		<div class="form-actions">
+			<div class="row-fluid">
+				<div class="span3">
+					<input type="submit" value="<?php __e('Get password') ?>" name="commit" class="btn btn-primary btn-large">
+				</div>
+			</div>
+		</div>
+	</form>
+	
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('#lostpassword').click(function() {
+		$('#sendpassForm').fadeIn(500);
+	});
+});
+</script>

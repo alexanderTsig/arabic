@@ -1,0 +1,36 @@
+<?php
+/**
+ * template to display subusers for a reseller
+ */
+$title = ___('Subusers');
+$this->setLayout('member/layout.phtml');
+$this->headScript()->appendFile($this->_scriptJs('user.js'));
+?>
+<?php if (@$message) : ?>
+<div class="am-info"><?php echo $message ?></div>
+<?php endif; ?>
+
+<?php echo $content ?>
+
+<h1><?php __e('Your Reseller Packages') ?></h1>
+
+<div class="grid-container">
+    <table class="grid">
+        <tr>
+            <th><?php __e('Product')?></th>
+            <th><?php __e('Purchased Credits')?></th>
+            <th><?php __e('Active subusers')?></th>
+            <th><?php __e('Pending subusers')?></th>
+            <th><?php __e('Available Credits')?></th>
+        </tr>
+        <?php foreach ($subusers_count as $product_id => $r): ?>
+        <tr style="text-align: right">
+            <td style="text-align: left"><?php if ($pr = Am_Di::getInstance()->productTable->load($product_id, false)) __e($pr->title); else print '-'; ?></td>
+            <td><?php echo $r['avail_count']?></td>
+            <td><?php echo $r['active_count']?></td>
+            <td><?php echo $r['pending_count']?></td>
+            <td><strong><?php echo $r['avail_count']-$r['active_count']?></strong></td>
+        </tr>
+    <?php endforeach ?>
+    </table>
+</div>

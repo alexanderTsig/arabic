@@ -1,0 +1,199 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}preferences{% endblock %}
+
+{% block title %}Preferences{% endblock %}
+
+{% block maincontent %}
+    {{ parent() }}
+
+    <div id="alert" class="alert" style="display:none"></div>
+
+    <form id="preferences" class="form-horizontal" method="POST" action="/api/user/data">
+        <div class="control-group">
+            <label class="control-label">Teacher Gender:</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="defaultGender" value="M">
+                    Male
+                </label>
+
+                <label class="radio">
+                    <input type="radio" name="defaultGender" value="F">
+                    Female
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">List options:</label>
+            <div class="controls">
+                <label class="checkbox">
+                    <input id="oldLessons" type="checkbox" value="oldLessons">
+                    Show previously completed lessons
+                </label>
+
+                <label class="checkbox">
+                    <input id="arabicText" type="checkbox" value="arabicText">
+                    Show lesson titles in both Arabic and English
+                </label>
+
+                <label class="checkbox">
+                    <input id="filterByStar" type="checkbox" value="filterByStar">
+                    Show only starred lessons
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Video options:</label>
+            <div class="controls">
+                <label class="checkbox">
+                    <input id="pseudoStreaming" type="checkbox" value="pseudoStreaming">
+                    Enable video buffering (useful for slow broadband connections)
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Start level:</label>
+            <div class="controls">
+                {# for level in levels %}
+                <label class="radio">
+                        <input type="radio" name="level" value="{{ level.id }}">{{ level.id }}
+                </label>
+                {% endfor #}
+                <label class="radio">
+                    <input type="radio" name="level" value="1" data-lesson="1">Introductory
+                </label>
+                <label class="radio">
+                    <input type="radio" name="level" value="1" data-lesson="5">Beginner
+                </label>
+                <label class="radio">
+                    <input type="radio" name="level" value="2" data-lesson="1">Intermediate
+                </label>
+                <label class="radio">
+                    <input type="radio" name="level" value="3" data-lesson="1">Fluent
+                </label>
+                <label class="radio">
+                    <input type="radio" name="level" value="4" data-lesson="1">Advanced
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Edit Background:</label>
+            <div class="controls">                                
+                <img src="" class="backImg" width="200px"/>
+
+                <div class="btn-group" style="vertical-align:bottom;">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Select Image
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#myModal" role="button"  data-toggle="modal">Select From List</a>
+                        </li>
+                        <li>
+                            <a tabindex="-1" href="#" data-ip-modal="#imageModal">Upload File</a>
+                        </li>
+                    </ul>
+                </div>
+                {##}
+                <input type="hidden" name="background_image" id="background_image" value=""/>
+                <input type="hidden" name="default_background_image" value="/img/wallpaper/default.jpg"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn btn-primary" type="submit" disabled>Save Changes</button>
+                <button class="btn underchange" disabled>Undo Changes</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Select Background Image</h3>
+        </div>
+        <div class="modal-body">
+            <ul class="thumbnails">
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/desert.jpg" alt="">
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/havest.jpg" alt="">
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/theater.jpg" alt="">                        
+                    </a>
+                </li>
+            </ul>
+            <ul class="thumbnails">
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/history.jpg" alt="">
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/grey.png" alt="">
+                    </a>
+                </li>
+                <li class="span4">
+                    <a href="#" class="thumbnail">
+                        <img src="/img/wallpaper/farmer.png" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary selectImg">OK</button>
+        </div>
+    </div>
+
+
+    <div class="ip-modal" id="imageModal" style="display:none;">
+        <div class="ip-modal-dialog">
+            <div class="ip-modal-content">
+                <div class="ip-modal-header">
+                    <a class="ip-close" title="Close">&times;</a>
+                    <h4 class="ip-modal-title">Change Image</h4>
+                </div>
+                <div class="ip-modal-body">
+                    <div class="btn btn-primary ip-upload">Upload <input type="file" name="file" class="ip-file"></div>
+                    <button class="btn btn-primary ip-webcam">Webcam</button>
+                    <button type="button" class="btn btn-info ip-edit">Edit</button>
+                    <button type="button" class="btn btn-danger ip-delete">Delete</button>
+
+                    <div class="alert ip-alert"></div>
+                    <div class="ip-info">To crop this image, drag a region below and then click "Save Image"</div>
+                    <div class="ip-preview"></div>
+                    <div class="ip-rotate">
+                        <button type="button" class="btn btn-default ip-rotate-ccw" title="Rotate counter-clockwise"><i class="icon-ccw"></i></button>
+                        <button type="button" class="btn btn-default ip-rotate-cw" title="Rotate clockwise"><i class="icon-cw"></i></button>
+                    </div>
+                    <div class="ip-progress">
+                        <div class="text">Uploading</div>
+                        <div class="progress progress-striped active"><div class="progress-bar"></div></div>
+                    </div>
+                </div>
+                <div class="ip-modal-footer">
+                    <div class="ip-actions">
+                        <button class="btn btn-success ip-save">Save Image</button>
+                        <button class="btn btn-primary ip-capture">Capture</button>
+                        <button class="btn btn-default ip-cancel">Cancel</button>
+                    </div>
+                    <button class="btn btn-default ip-close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

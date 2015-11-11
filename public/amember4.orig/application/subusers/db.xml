@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema version="4.0.0">
+    
+  <table name="subusers_subscription">
+    <field name="subusers_subscription_id" type="int" unsigned="1" notnull="1" extra="auto_increment"/>
+    <field name="product_id" type="int" unsigned="1" notnull="1" />
+    <field name="user_id" type="int" unsigned="1" notnull="1" />
+    <field name="status" type="tinyint" default="0" />
+    <index name="PRIMARY" unique="1">
+      <field name="subusers_subscription_id"/>
+    </index>
+    <index name="user_list" unique="1">
+      <field name="product_id"/>
+      <field name="user_id"/>
+    </index>
+  </table>
+  
+  <table name="user">
+      <field name="subusers_parent_id" type="int" unsigned="1" notnull="1" />
+      <index name="subusers">
+         <field name="subusers_parent_id"/>
+      </index>
+  </table>
+
+  <table name="product">
+      <field name="subusers_product_id" type="int" unsigned="1" notnull="0" />
+      <field name="subusers_count" type="int" notnull="0" />
+  </table>
+
+</schema>

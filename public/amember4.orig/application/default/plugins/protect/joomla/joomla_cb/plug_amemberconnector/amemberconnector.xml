@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cbinstall version="4.5.3" type="plugin" group="user">
+        <name>aMember Connector</name>
+        <author>Alex Scott</author>
+        <creationDate>02-22-2013</creationDate>
+        <copyright>(C) 2013 CGI-Central.NET</copyright>
+        <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+        <authorEmail>alex@cgi-central.net</authorEmail>
+        <authorUrl>amember.com</authorUrl>
+        <version>1.9</version>
+        <description>Version 1.0 -- Plugin that creates a connection between Community Builder and aMember Pro ver. 4 via aMember Remote API.</description>
+        <files>
+                <filename plugin="amemberconnector">amemberconnector.php</filename>
+                <filename>api.php</filename>
+                <filename>index.html</filename>
+        </files>
+        <params>
+            <param name="@spacer" type="spacer" default="" label="Amember settings" description="" />
+            <param name="amURL" type="text" size="25" default="" label="URL of Amember" description="This is the URL that Amember is located in, like http://www.yoursite.com/amember" />
+            <param name="amApiKey" type="text" size="25" default="" label="Api Key" description="This is the Api Key configured at aMember CP -> Remote API Permissions" />
+            <param name="amProductId" type="custom" class="getAmemberTab" method="listProducts" label="Add a subscription" description="When user signs up to Joomla, add a subscription to the following aMember Product" />
+        </params>       
+        <tabs>
+            <tab name="aMember" description="" class="getaMemberTab" cbfields="0" position="cb_tabmain">
+                <fields>
+                    <field title="aMember ID" name="cb_amemberid" description="This is the users id number in aMember." type="text" registration="0" profile="0" readonly="1" params="" />
+                </fields>
+            </tab>
+        </tabs>
+        <install>
+            <queries>
+                <query>
+                        UPDATE `#__comprofiler_plugin` SET `published` = "1" WHERE `element` ="amemberconnector"
+                </query>
+            </queries>
+        </install>
+</cbinstall>

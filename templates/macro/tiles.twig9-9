@@ -1,0 +1,203 @@
+{% macro leaderboard(board, user_id,name) %}
+
+	<div id="leaderboard" class="clearfix find-frnds">
+		<header>Student Rankings</header>
+		
+	
+		<!--<div class="drop-menu">
+		
+		<div class="add-frnds"><a href="javascript:void(0);">Add Friends</a></div>
+		<div class="menu-icn">
+		<a href="javascript:void(0);"><i class="icon-align-justify"></i></a></div>
+		
+
+		</div>-->
+		
+<div class="btn-group">
+      <button class="btn btn-success add-frnd2" type="button">Add Friends</button>
+      <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button">
+        <span class="caret"></span>
+       
+      </button>
+      <ul role="menu" class="dropdown-menu addfetchfriends new-divs">
+	  
+       <li class="serch1"><a href="javascript:void(0);">Search</a></li>
+	<li class="send-invte1"><a href="javascript:void(0);">Send Invite</a></li>
+	<li class="paddfetchfriends fetchmyfbfrd" style="display:none;"></li>
+	<li id="fb-auth"><a href="javascript:void(0);">Find  Friends On Facebook</a></li>
+      </ul>
+    </div>
+		
+		<div class="clear"></div>
+	
+		<!--	<div class="btns-new">
+	
+	<ul class ="addfetchfriends">
+	
+	<li class="serch1"><a href="javascript:void(0);">Search</a></li>
+	<li class="send-invte1"><a href="javascript:void(0);">Send Invite</a></li>
+	<li id="fb-auth"><a href="javascript:void(0);">Find  Friends On Facebook</a></li>
+	<li class="paddfetchfriends" style="display:none;"></li>
+	</ul>
+
+	
+	</div>-->
+	
+	<div class="clear"></div>
+					<div class="tabs">
+		<ul>
+		<li><a href="javascript:void(0);" class="month" onclick="fetchwmt('month');">This Monthly</a></li>
+
+		<li><a href="javascript:void(0);" class="alltimes" onclick="fetchwmt('all');">All Times</a></li>
+
+		</ul>
+		</div>
+
+	<!--	<a class='fancybox-effects-a-new chenge-image' id="imgsern" href='#friend' >
+						Find Friend </a>-->
+				
+		{# if date is not null %}
+			<span style="font-size:11px"><i class="icon-white icon-info-sign"></i>&ensp;Showing students signed up in {{ date }}</span>
+		{% endif #}
+		
+		<div class="stdnt-rank-part">
+		
+		{% for student in board %}
+
+			<div class="row{% if student.user_id == user_id %} active{% endif %} remfrds_{{ student.user_id }}">
+				<div>
+					<img class="{% if student.user_id == user_id %} brder-img {% endif %}" src="/api/user/avatar/{{ student.user_id }}">
+				</div>
+				<div style="text-align:center">
+					<span class="rank">{{ student.rank }}</span>
+				</div>
+				<div>					
+					<span class="name">{{ student.login }}</span><br>
+					<span class="points"><i class="icon-star"></i>{{ student.points }}</span>
+					
+					
+					
+					
+					<!--<img  class="rmvsfrds" src="/img/cross.jpg" />-->
+				  
+				    
+				   
+				</div>
+				
+				{% if student.user_id != user_id %}
+				<div class="remove-icns rmvsfrds" id="remfrds_{{ student.user_id }}">
+					<a href="javascript:void(0);"><i class="icon-remove"></i></a>
+					</div>
+					 {% endif %}
+			</div>
+		{% if board|length == 1 %}
+               <div class="cmpare-txt"> Compare your progress with others!</div>
+                 {% endif %}
+		{% endfor %}
+	
+	</div>
+	
+	<div class="container-fb-frnds">
+<div class="clear"></div>
+<div class="send-invte-main">
+<h3>Send a personal invite email</h3>
+<!--<input name="" id="sendsinvitefrid" type="text" placeholder="Email Address">
+<form class="form-search form-inline">
+		<input type="text" placeholder="Email Address" class="search-query"  id="sendsinvitefrid">
+    </form>-->
+	
+<input type="text" placeholder="Email Address" id="sendsinvitefrid" class="form-control snd-inpt">
+	<button type="button" id="sendallfriends" class="btn btn-success srch-btstrp">Send Email</button>
+<!--<div class="send-btn">
+<a href="javascript:void(0);" id="sendallfriends"></a></div>-->
+<div class="clear"></div>
+<div id="appfrndall"></div>
+<p>Fill in your friend's email addresses and we’ll send them a personal invite.</p>
+<div class="back-new"><a href="javascript:void(0);"><i class="icon-arrow-left"></i> Back</a></div>
+</div>
+<div class="search-main-new1as" >
+
+  <form class="form-search form-inline">
+        <input type="text" id="searchfrd" onkeyup="mysearchfrd(this.value);" class="search-query" placeholder="Name or Email Address" />
+    </form>
+<!--<input name="" type="text" id="searchfrd" onkeyup="mysearchfrd(this.value);" placeholder="Name or Email">
+
+<div class="search-main-btn"><a href="javascript:void(0);" id="searchfriends">Search</a></div>
+-->
+
+<button class="btn btn-success srch-btstrp-new" id="searchfriends" type="button">Search</button>
+
+<div class="clear"></div>
+
+<div class="srch-add11">
+</div>
+<div class="srch-add1" style="display:none">
+</div>
+<div class="clear"></div>
+<div id="appfrnd"></div>
+<div class="back"><a href="javascript:void(0);"><i class="icon-arrow-left"></i> Back</a></div>
+</div>
+</div>
+<div class="find-fb-frnds" style="display:none;">
+	
+<form class="form-search form-inline">
+        <input type="text" placeholder="Name" onkeyup="searchfrd(this.value);" class="search-query"  id="searchfrd1">
+    </form>
+	
+	<div class="clear"></div>
+	<!--
+<input name="" type="text" id="searchfrd1" onkeyup="searchfrd(this.value);" placeholder="Name">
+--><div class="find-fb-frnds-head">Facebook Friends
+
+</div>
+
+<div class="srch-add1asa">
+
+<div class="srch-add1asa1">
+</div>
+</div>
+<div class="back1"><a href="javascript:void(0);"><i class="icon-arrow-left"></i> Back</a></div>
+</div>
+<div class="ladimgs"><img src="/img/9nw.gif" id="loadimage" style="display:none;"></div>
+</div>
+{% endmacro %}
+
+{% macro generic(colour, label, imgsrc, ratio) %}
+	<div class="tile tile-{{ colour }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+		<div class="content" style="text-align:center">
+			{% if imgsrc is not null %}<img src="/img/{{ imgsrc }}">{% endif %}
+		</div>
+		<div class="caption">{{ label }}</div>
+	</div>
+{% endmacro %}
+
+{% macro picture(class, colour, label, imgsrc, ratio, icon) %}
+	<div class="tile tile-{{ colour }} {{ class }}"  data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+			<img src="{{ imgsrc }}"></img>
+		<div class="caption">{{ label }}{% if icon is not null %}<span style="float:right"><i class="icon-{{ icon }}"></i></span>{% endif %}</div>
+	</div>
+{% endmacro %}
+
+{% macro classed(class, colour, label, imgsrc, ratio) %}
+	<div class="tile tile-{{ colour }} {{ class }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+		<div class="content" style="text-align:center">
+			{% if imgsrc is not null %}<img src="/img/{{ imgsrc }}">{% endif %}
+		</div>
+		<div class="caption">{{ label }}</div>
+	</div>
+{% endmacro %}
+
+{% macro caption(text) %}
+	<div class="tile" data-ratio="0">
+		<div>{{ text }}</div>
+	</div>
+{% endmacro %}
+
+{% macro custom(colour, label, html, ratio) %}
+	<div>
+		<div class="tile tile-{{ colour }}" data-ratio="{% if ratio is not null %}{{ ratio }}{% else %}1{% endif %}">
+			<div class="content">{{ html|raw }}</div>
+			<div class="caption">{{ label }}</div>
+		</div>
+	</div>
+{% endmacro %}

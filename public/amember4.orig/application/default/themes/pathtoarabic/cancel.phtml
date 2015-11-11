@@ -1,0 +1,16 @@
+<?php $title = ___('Payment Failed'); $this->setLayout('layout.phtml'); ?>
+<?php include $this->_script('_error.phtml'); ?>
+<!-- <span class="error"><?php // __e('An error occurred while handling your payment.') ?></span> -->
+<ul class="errors">
+    <li><?php __e('An error occurred while handling your payment.') ?></li>
+</ul>
+<!-- <h2> -->
+<?php if (count($this->paysystems) > 1): ?>
+	<p>You may optionally choose a different payment processor before trying again. Alternatively, you may cancel the registration process.</p>
+<?php else: ?>
+	<p>You may attempt to make a payment again. Alternatively, you may cancel the registration process.</p>
+<?php endif; ?>
+<!-- </h2> -->
+<?php echo $form; ?>
+
+

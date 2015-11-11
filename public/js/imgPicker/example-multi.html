@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="assets/img/favicon.png">
+	<title>ImagePicker Demo</title>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="assets/css/demo.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/css/imgpicker.css">
+	
+	<!-- JavaScript -->
+	<script src="assets/js/jquery-1.11.0.min.js"></script>
+	<script src="assets/js/jquery.Jcrop.min.js"></script>
+	<script src="assets/js/jquery.imgpicker.js"></script>
+
+</head>
+<body>
+	<div class="navbar clearfix"><div class="container"><a class="navbar-brand" href="index.html">ImagePicker</a><button class="navbar-toggle" type="button"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><ul class="navbar-nav"><li><a href="http://codecanyon.net/item/imagepicker-uploader-webcam-cropper/6722532?ref=HazzardWeb">Buy Now</a></li><li><a href="http://demo.hazzardweb.net/imgPicker/docs">Documentation</a></li><li><a href="http://hazzardweb.net">© HazzardWeb</a></li></ul></div></div>
+
+	<div class="main">
+		<div class="container"><div class="box">
+			<div class="content clearfix">
+				
+				<!-- Inline version -->
+				<div id="imgPickerMulti">
+					<div class="btn btn-primary ip-upload">Upload <input type="file" name="file" class="ip-file"></div>
+					<button type="button" class="btn btn-primary ip-webcam">Webcam</button>
+					<!-- <button type="button" class="btn btn-info ip-edit">Edit</button>
+					<button type="button" class="btn btn-danger ip-delete">Delete</button> -->
+
+					<div class="alert ip-alert"></div>
+					<div class="ip-info">To crop this image, drag a region below and then click "Save Image"</div>
+					<div class="ip-preview"></div>
+					<div class="ip-rotate">
+						<button type="button" class="btn btn-default ip-rotate-ccw" title="Rotate counter-clockwise"><i class="icon-ccw"></i></button>
+						<button type="button" class="btn btn-default ip-rotate-cw" title="Rotate clockwise"><i class="icon-cw"></i></button>
+					</div>
+					<div class="ip-progress">
+						<div class="text">Uploading</div>
+						<div class="progress progress-striped active"><div class="progress-bar"></div></div>
+					</div>
+					<div class="ip-actions">
+						<button class="btn btn-success ip-save">Save Image</button>
+						<button class="btn btn-primary ip-capture">Capture</button>
+						<button class="btn btn-default ip-cancel">Cancel</button>
+					</div>
+				</div>
+				<!-- end Inline -->
+				
+				<br><ul class="images"></ul>
+				
+				<h2>Examples:</h2><ul><li><a href="index.html">Main Demo</a></li><li><a href="example-modal.html">Modal basic</a></li><li><a href="example-inline.html">Inline basic</a></li><li><a href="example-autoload.html">Autoload image</a></li><li class="active"><a href="example-multi.html">Multiple images</a></li><li><a href="example-zero-interface.html">Zero interface</a></li></ul>
+			</div>
+		</div></div>
+	</div>
+
+	<script> 
+		$(function() {
+			var addImage = function(image) {
+				// console.log(image);
+				$('.images').append('<li>'+image.name+'</li>');
+			};
+
+			$('#imgPickerMulti').imgPicker({
+				url: 'server/upload_multi.php',
+				dropZone: null,
+				
+				loadComplete: function(images) {
+					for (var i = 0; i < images.length; i++) {
+						addImage(images[i]);
+					}
+				},
+
+				uploadSuccess: function(image) {
+				},
+				
+				cropSuccess: function(image) {
+					addImage(image);
+				}
+			});
+
+			// Demo only
+			$('.navbar-toggle').on('click',function(){$('.navbar-nav').toggleClass('navbar-collapse')});
+			$(window).resize(function(e){if($(document).width()>=430)$('.navbar-nav').removeClass('navbar-collapse')});
+		}); 
+	</script>
+</body>
+</html>

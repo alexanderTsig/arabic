@@ -1,0 +1,52 @@
+{% extends pjax == true ? "fragment.twig" : "learning_base.twig" %}
+
+{% block template %}exercise{% endblock %}
+
+{% import "macro/panels.twig" as panel %}
+
+{% block title %}Level {{ level }} &gt; Lesson {{ lesson }} &gt; Exercise{% endblock %}
+
+{% block learningcontent %}
+    {{ parent() }}
+{#    <iframe src="{{ url }}" id="exercise-iframe" style="border:none" width="" height="" onload="console.log(this.body)"></iframe>        #}
+    <div class="span12 stageplayer">
+        <div class="stageplayer-content">
+            <div class="full-screen">
+                <a href="#" class="full-screen-btn">
+                    <i class="icon-fullscreen"></i>
+                </a>
+            </div>
+            <iframe src="{{ url }}" style="border:none" width="100%" height="100%" onload="console.log(this.body)"></iframe>        
+        </div>        
+    </div>
+{% endblock %}
+{% block notecontent %}
+    <ul class="pager text-center"> 
+        <li class="previous">
+            <a href="{{ prev_lesson }}" class="pagecontroll {% if prev_lesson == "" %}disabled{% endif %}"">
+                <span class="radious">
+                    <i class="icon-chevron-left"></i>
+                </span>
+                Prior Lesson
+            </a>
+        </li>
+        <li class="chapter" id="chapters">
+            {% if chapters|length > 0 %}
+                {% for item in chapters %}
+                    <a href="#">{{ item.title }}</a> 
+                    {% if loop.last ==  false %}
+                        &nbsp;>&nbsp;
+                    {% endif %}    
+                {% endfor %}
+            {% endif %}
+        </li>
+        <li class="next">
+            <a href="{{ next_lesson }}" class="pagecontroll {% if next_lesson == "" %}disabled{% endif %}"">
+                Next Lesson
+                <span class="radious">
+                    <i class="icon-chevron-right"></i>
+                </span>
+            </a>
+        </li>           
+    </ul>
+{% endblock %}

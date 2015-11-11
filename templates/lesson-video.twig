@@ -1,0 +1,87 @@
+{% extends pjax == true ? "fragment.twig" : "learning_base.twig" %}
+
+{% import "macro/tips.twig" as tip %}
+
+{% block template %}video{% endblock %}
+
+{% block title %}Level {{ level }} &gt; Lesson {{ lesson }} &gt; Video{% endblock %}
+
+{% block learningcontent %}
+    {{ parent() }}
+    <div id="video" class="span12">
+        {% if gender != default_gender %}
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                You are now viewing a {% if gender == 'M' %}male{% else %}female{% endif %} teacher. Visit <a href="/preferences">Preferences</a> to make this change permanent.</div>
+            {% endif %}
+
+
+        <div class="span12 stageplayer stage-video-player">
+            <div class="stageplayer-content">
+                <div id="player" data-key="$486645316100173" class="flowplayer" data-gender="{{ gender }}">
+                </div>
+            </div>        
+        </div>
+
+        <ul class="pager text-center"> 
+            <li class="previous">
+                <a href="{{ prev_lesson }}" class="pagecontroll {% if prev_lesson == "" %}disabled{% endif %}"">
+                    <span class="radious">
+                        <i class="icon-chevron-left"></i>
+                    </span>
+                    Prior Lesson
+                </a>
+            </li>
+            <li class="chapter" id="chapters">
+                {% if chapters|length > 0 %}
+                    {% for item in chapters %}
+                        <a href="#">{{ item.title }}</a> 
+                        {% if loop.last ==  false %}
+                            &nbsp;>&nbsp;
+                        {% endif %}    
+                    {% endfor %}
+                {% endif %}
+            </li>
+            <li class="next">
+                <a href="{{ next_lesson }}" class="pagecontroll {% if next_lesson == "" %}disabled{% endif %}"">
+                    Next Lesson
+                    <span class="radious">
+                        <i class="icon-chevron-right"></i>
+                    </span>
+                </a>
+            </li>           
+        </ul>
+    </div>
+{% endblock %}
+{% block notecontent %}
+    {{ parent() }}
+    <div id="footer" class="row-fluid" style="">
+        <div id="" class="span4">
+            <div class="">
+                <header style="margin-bottom:1em">Select Teacher</header>
+                <ul id="teachers" style="padding:0">
+                    {% if teachers|length > 0 %}
+                        {% for teacher in teachers %}
+                            <li data-gender="{{ teacher.gender }}" class="{% if teacher.gender == gender %}locked{% else %}unlocked{% endif %}">
+                                <img src="/img/mugshot/teacher/{{ teacher.name|lower }}.jpg">
+                                {% if teacher.gender == gender %}
+                                    {{ teacher.name }}
+                                {% else %}
+                                    <a href="/level/{{ level }}/{{ lesson }}/video/{{ teacher.gender }}">{{ teacher.name }}</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div id="" class="span8">
+            <div class="">
+                <header style="margin-bottom:1em"><i class="icon-pencil icon-white"></i>&nbsp;My Notes</header>
+                <form>
+                    <textarea id="note" style="resize:vertical" class="input-block-level" rows="5"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

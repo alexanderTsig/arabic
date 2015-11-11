@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+    <id>reseller</id>
+    <name>Reseller</name>
+    <desc>Allows customers to resell your site subscriptions</desc>
+    <version>4.6.3</version>
+</module>

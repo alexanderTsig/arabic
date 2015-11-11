@@ -1,0 +1,134 @@
+/* #masthead > div {
+	background-size:auto 70px;
+	background-image:url(/img/calligraphy/calligraphy-medium.png);
+	background-repeat:no-repeat;
+	background-position:top right;
+} */
+
+/* .form-horizontal fieldset > .control-group:nth-child(1) {
+	margin-top:0 !important;
+} */
+
+/* .hero-unit {
+	padding:40px;
+} */
+
+/* .hero-unit > p:not(:last-child) {
+	margin:0.8em 0;
+} */
+
+#levels h2 {
+	padding:1em 0;
+	color:#bcb072;
+}
+
+#levels .well {
+	text-align:center;
+}
+
+#levels .unlocked:hover > img {
+	opacity:0.85;
+}
+
+#levels .progress {
+	background-color:white !important;
+	background-image:none;
+	height:1em;
+	border:1px solid #aaa; 
+}
+
+#levels .well:hover {
+	cursor:pointer;
+}
+
+#levels .well:hover {
+	cursor:pointer;
+}
+
+#levels .well.locked {
+	cursor:default;
+}
+
+.tiles {
+	position:relative;
+	left:-10px;
+	display:none;
+	margin-bottom:20px;
+}
+
+.tiles > div {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+	float:left;
+	border-left:10px solid #fff;
+	border-right:10px solid #fff;
+	color:#fff;
+}
+
+.tiles > div > div {
+	position:relative;
+	text-align:center;
+	cursor:pointer;
+}
+
+.tiles img {
+	position:relative;
+}
+
+.tiles > div:hover img {
+	top:-5px;
+}
+
+.tiles > div.selected img {
+	top:-5px;
+}
+
+.tiles > div:hover > div[class^="tile-"] {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+	border:5px solid #2669c0;
+}
+
+.tiles > div:hover > .tile {
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+	border:5px solid #2669c0;
+}
+
+.tiles > div.selected > .tile {
+	-moz-box-sizing: border-box;
+	background-image:url("/img/metro-corner-tick.png");
+	background-repeat:no-repeat;
+	background-position:right top;
+	border:5px solid #2669c0;
+}
+
+.tiles span {
+	position:absolute;
+	line-height:1em;
+	left:14px;
+	bottom:14px;
+	font-size:25px;
+	font-family:"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+}
+
+.tiles > div:hover span {
+	left:9px;
+	bottom:9px;
+}
+
+.tiles > div.selected span {
+	left:9px;
+	bottom:9px;
+}
+
+.tiles p {
+	font-size:0.9em;
+	color:black;
+	clear:both;
+	padding:7px 0 0 2px;
+	line-height:1.4em;
+}

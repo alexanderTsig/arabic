@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install version="1.5" type="plugin" group="system">
+    <name>System - aMember</name>
+    <author>CGI-Central, Alex Scott</author>
+    <creationDate>January 2013</creationDate>
+    <copyright>(C) 2013 CGI-Central.Net. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/lgpl.html GNU/LGPL</license>
+    <authorUrl>www.amember.com/p/Integration</authorUrl>
+    <version>1.5.0</version>
+    <description>Redirects to aMember for logout and profile changes to implement better single-login</description>
+    <files>
+        <filename plugin="amember">amember.php</filename>
+    </files>
+    <params>
+        <param name="amemberroot" type="text" default="/amember" label="aMember Root URL" description="aMember Root URL" />
+    </params>
+</install>

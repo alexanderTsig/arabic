@@ -1,0 +1,31 @@
+
+					<span class="points_{{ user_id }}"> 
+					<button class="btn btn-success scs-btn frnd" id="{{ user_id }}" type="button">Friends</button>
+					</span>
+	
+		{% block javascript %}
+
+	
+
+	<script>
+	
+	$(document).ready(function() {
+	 $(document.body).on('click', '.frnd', function(event) {
+    	var searchval=($("#searchfrd").val());
+	var frndid=($(this).attr('id'));
+
+	if(frndid!=''){
+		$.ajax({
+                type: "POST",
+                url: "api/user/frnd",
+                data: {frndid:frndid},
+                success: function (data) {
+                 $(".points_"+frndid).html(data);
+                }
+            });
+	}
+	});
+});
+	
+	</script>
+	{% endblock %}

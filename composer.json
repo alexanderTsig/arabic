@@ -1,0 +1,24 @@
+{
+    "name": "slim/slim-skeleton",
+    "description": "A Slim Framework skeleton application for rapid development",
+    "keywords": ["microframework","rest","router"],
+    "homepage": "http://github.com/codeguy/Slim-Skeleton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Lockhart",
+            "email": "info@joshlockhart.com",
+            "homepage": "http://www.joshlockhart.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "slim/slim": "2.*",
+        "slim/extras": "2.*",
+        "twig/twig": ">=1.12.0,<2.0-dev",
+		"twitter/bootstrap": "2.3.*",
+		"components/jquery": "1.9.*",
+		"kriswallsmith/assetic": "dev-master#df03baa337ae1c87803a7b1a76a393f8a59813f3",
+		"michelf/php-markdown": "1.*"
+    }
+}

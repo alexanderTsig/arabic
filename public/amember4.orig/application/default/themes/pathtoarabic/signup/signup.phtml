@@ -1,0 +1,34 @@
+<?php 
+if (empty($title)) $title=___('Sign-up');
+else $title=___($title);
+$this->setLayout('layout.phtml'); 
+include $this->_script('_error.phtml');
+
+$this->headScript()
+        ->appendFile(REL_ROOT_URL . '/application/default/views/public/js/jquery/jquery.validate.js');
+?>
+
+<style>
+	h1.reg, h2.reg, #masthead ul.features { display: block; }
+    #row-coupon-0 { display: block; clear: both; }
+    #row-coupon-0 .element { width: auto; }
+    #row-coupon-0 label { width: auto; }
+</style>
+
+<div class="am-signup">
+<?php echo $this->blocks('signup/login/before') ?>
+<?php include $this->_script('signup/_login-offer.phtml'); ?>
+<?php echo $this->blocks('signup/login/after') ?>
+    
+<?php echo $this->blocks('signup/form/before') ?>
+<?php include $this->_script('_form.phtml'); ?>
+<?php echo $this->blocks('signup/form/after') ?>
+</div>
+<?php include $this->_script('js.country_state.js'); ?>
+
+<script>
+	jQuery(document).ready(function($) {
+		$("div#row-paysys_id").prepend("<img class='comodo' src='/img/comodo-site-secure.png'>");
+		$("#row-product_id_page-0-0").append($("#row-coupon-0"));
+	});
+</script>

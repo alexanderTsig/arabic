@@ -1,0 +1,86 @@
+{% extends "skel.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+    <div class="canvas canvas-login">
+
+        <div id="logo">
+            <img src="/img/logo-modern.png"> <!-- ptalogo.png -->
+        </div>
+
+        <div id="alert" class="alert" style="text-align:center;display:none"></div>
+
+        <header>
+            <h3>Path to Arabic</h3>
+
+            <div class="btn-toolbar">
+                <a class="btn" href="http://pathtoarabic.com">Home</a>
+                <a class="btn btn-success" href="//portal.pathtoarabic.com/register">Sign up</a>
+            </div>
+        </header>    
+
+        <form id="login" method="POST" data-nonce="{{ nonce }}" action="/amember4/login/index">
+{#        <form id="login" method="POST" data-nonce="{{ nonce }}" action="{{ loginurl }}">#}
+            <div class="row-fluid">
+                <label for="amember-login">Username or email</label>
+                <input type="text" class="span12" name="amember_login" id="amember-login" size="30"> <!-- size needed? -->
+
+                <label for="amember-pass">Password</label>
+                <input type="password" class="span12" name="amember_pass" id="amember-pass" size="30"> <!-- size needed? -->
+            </div>
+
+            <div class="form-actions">
+                <div class="row-fluid">
+                    <div class="span3">
+                        <input class="btn btn-primary btn-large" name="commit" type="submit" value="Log in">
+                    </div>
+
+                    <div class="span9">
+                        <i class="icon-user"></i> <a href="#askpass" role="button" data-toggle="modal">Can't access your account?</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div id="footer">
+            <!-- <i class="icon-envelope"></i> <a href="#">Resend confirmation email</a> -->
+            <i class="icon-question-sign"></i> <a href="mailto:support@pathtoarabic.com">Email us for help</a>
+            &emsp;&emsp;
+            <i class="icon-info-sign"></i> <a href="http://pathtoarabic.com/terms-services.php">Terms of Service</a>
+        </div>
+
+        <div id="askpass" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="askpass-label" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="askpass-label">Account Recovery</h3>
+            </div>
+
+            <div class="modal-body">
+                <p>If you are unable to access your account due to having forgotten your password then you may issue a request to change it. Simply enter your username or registered email address below:</p>
+
+                <p>
+                <div class="input-prepend">
+                    <span class="add-on">@</span>
+                    <input class="span4" type="text" id="email" placeholder="Username or Email">
+                </div>
+                </p>
+
+                <p>If you choose to proceed, you will receive an email containing further instructions. Please allow up to 10 minutes for this email to arrive.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                <button class="btn btn-primary">Change Password</button>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="/js/login.js"></script>
+{% endblock %}

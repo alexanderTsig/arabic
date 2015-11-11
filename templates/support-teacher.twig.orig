@@ -1,0 +1,181 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}support-teacher{% endblock %}
+
+{% block title %}Support : Teacher Support{% endblock %}
+
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css">
+		#osk {
+			padding:1.5em 0;
+			width:42em;
+			text-align: center;
+			background-color:rgba(0,0,0,0.05);
+		}
+
+		#osk button {
+			min-height: 1.5em;
+			min-width: 1.5em;
+			font-size:24px;
+		}
+
+		#key_spacebar {
+			width: 15em;
+		}
+
+		#osk.shift #key_leftshift,
+		#osk.shift #key_rightshift,
+		#osk.altGr #key_altgr,
+		#osk.capsLock #key_capslock {
+			background-color: #fd9;
+		}
+
+		textarea[dir=rtl] {
+			font-size:xx-large;
+			line-height:1.2em;
+		}
+	</style>
+{% endblock %}
+
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="navbar">
+		<div class="navbar-inner">
+			<a class="brand" href="/support">Help &amp; Support</a>
+
+			<ul class="nav">
+					<li><a href="/support/faq">FAQ</a></li>
+					<li class="active"><a href="/support/teacher">Teacher Support</a></li>
+					<li><a href="/support/contact">Customer Service</a></li>
+					<li><a href="/support/feedback">Send Feedback</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="alert" class="alert alert-success" style="display:none"></div>
+
+	<form class="form-horizontal" action="/api/support/contact" data-nonce="{{ nonce }}">
+		<fieldset>
+			<legend>How may we contact you?</legend>
+			
+			<div class="control-group">
+				<label class="control-label" for="email">Email Address</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-envelope"></i></span>
+						<input class="span12" type="email" name="email" placeholder="(required)" type="email"{% if not email is empty %} value="{{ email }}"{% endif %} disabled>
+					</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label" for="phone">Phone Number</label>
+				<div class="controls">
+					<div class="input-prepend">
+						<span class="add-on"><i class="icon-bell"></i></span>
+						<input class="span12" type="tel" name="phone" placeholder="(optional)"{% if not phone is empty %} value="{{ phone }}"{% endif %}>
+					</div>
+				</div>
+			</div>
+		</fieldset>	
+
+		<fieldset>
+			<legend>How may we help?</legend>
+
+			<div class="control-group">
+				<label class="control-label" for="question">Question</label>
+				
+				<div class="controls">
+					<textarea rows="5" name="question" class="span9" placeholder="Type in your question or comment …"></textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="sample">Arabic Sample</label>
+				
+				<div class="controls">
+					<textarea id="sample" dir="rtl" rows="5" name="sample" class="span9"></textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<!-- <input class="btn btn-primary btn-large" name="commit" type="submit" value="Send request"> -->
+					<button type="submit" class="btn btn-primary btn-large" disabled>Send request</button>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+
+	<div id="osk" style="display:none"></div>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+
+	<script src="/lib/osk/jquery.caret.js"></script>
+	<script src="/lib/osk/jquery.osk.js"></script>
+	<script src="/js/plugin/jquery-ui-1.10.3.draggable.js"></script>
+
+	<script>	
+		$(document).ready(function() {
+			/* Load the on-screen keyboard */
+			$('#osk').loadLayout('/lib/osk/layouts/arabic-101.json', function(key) {
+				var box = $('textarea[name=sample]');
+				var text = box.val();
+				var pos = box.caret();
+			
+				switch (key) {
+					case '\b':
+						box.val(text.substring(0, pos-1) + text.substring(pos));
+						box.caret(pos-1);
+						break;
+					case '\3':
+						box.caret(pos-1);
+						break;
+					case '\4':
+						box.caret(pos+1);
+						break;
+					default:
+						box.val(text.substring(0, pos) + key + text.substring(pos));
+						box.caret(pos+1);
+				}
+			}).draggable();
+
+			/* Show the on-screen keyboard when the sample textarea is entered */
+			$("textarea[name=sample]").mousedown(function() {
+				var osk = $("#osk");
+
+				if (! osk.is(":visible")) {
+					var box = $("textarea[name=sample]");
+
+					osk.css({ display: "block", visibility: "hidden" });
+
+					osk.offset({
+						 top: box.offset().top + 40,
+						left: box.offset().left + 160 // FIXME: figure out a way to right-align to page margin
+					});
+				}
+
+				osk.css({ visibility: "visible" });
+			});
+
+			$("#sample").blur(function() {
+				// Don't allow the blur event to trigger if the cursor is over the on-screen keyboard
+				setTimeout(function() {
+					if ($("#osk").is(":hover")) {
+						$("#sample").focus();
+					} else {
+						$("#osk").css({ visibility: "hidden" });
+					}
+				}, 10);
+			});
+		});
+
+	</script>
+
+{% endblock %}

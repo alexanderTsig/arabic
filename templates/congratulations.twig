@@ -1,0 +1,17 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}congratulations{% endblock %}
+
+{% block title %}Congratulations{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="hero-unit">
+		<h1>Congratulations, {{ firstname }}!</h1>
+
+		<p>You have advanced to Level {{ level }}. Well done!</p>
+		
+		<p><a class="btn btn-primary btn-large" href="/level/{{ level }}">View Lessons</a></p>
+	</div>
+{% endblock %}

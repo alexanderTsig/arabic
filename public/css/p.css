@@ -1,0 +1,766 @@
+html {
+	overflow-y:scroll;
+}
+
+body {
+	background-color:#f2f2f2;
+}
+
+html, body { height:100%; }
+
+#masthead {
+	height:90px;
+	background-color:white !important;
+	border-bottom:2px solid #7f7f7f;
+	background:url(/img/ptalogo.png) no-repeat bottom left;
+}
+
+#masthead h1 {
+	line-height:80px;
+	vertical-align:middle;
+	margin-right:15px;
+}
+
+#masthead > img {
+	display:block;
+	position:relative;
+	margin-left:auto;
+	margin-right:10px;
+	top:47px;
+}
+
+#sidebar {
+	padding:10px 0;
+}
+
+#maincontent {
+	padding:1.5em 2.2em;
+	border-left:1px solid #dadada;
+	background-color:white;
+}
+
+span[dir=rtl] {
+	display:none;
+	font-size:18px;
+}
+
+.accordion-group {
+	background:#fff;
+	margin-bottom:10px;
+}
+
+.accordion-heading {
+	position:relative;
+}
+
+.dropdown {
+	margin-top:auto;
+	margin-bottom:auto;
+	position:absolute;
+	right:5px;
+	top:0;
+	bottom:0;
+	max-height:100%;
+	max-width:100%;
+}
+
+.dropdown.active {
+	-moz-transform:rotate(90deg);
+}
+
+a.accordion-toggle {
+	font:1em 'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;
+}
+
+.accordion-body a {
+	text-decoration:none;
+	color:#000;
+}
+
+.accordion-body a.active {
+	color:#0088CC;
+}
+
+.panel {
+	background:#f7f7fd;
+	margin-bottom:1.12em;
+	border:1px solid #3a4450;
+}
+
+.panel > header {
+	background-color:#3a4450;
+	padding:0.5em;
+	color:#fff;
+	margin-bottom:0.5em;
+}
+
+.panel > ul {
+	padding:0 1em;
+}
+
+.panel small {
+	color:#555;
+}
+
+table.lessons td {
+	vertical-align:middle;
+}
+
+table.lessons > tbody > tr > td:nth-child(2) {
+	width:33%;
+}
+
+table.lessons div.status {
+	width:5em;
+	float:right;
+	text-align:center
+}
+
+table.lessons span.score {
+	float:left;
+	margin-right:0.5em;
+	width:2.5em;
+	text-align:right
+}
+
+table.lessons div.progress {
+	margin:0;
+}
+
+table.lessons tr.locked a {
+	color:#aaa;
+}
+
+table.lessons tr.locked a:hover {
+	text-decoration:none;
+}
+
+#navbar div.locked > a {
+	color:#aaa;
+	cursor:default;
+}
+
+#teachers {
+	margin:0 !important;
+	text-align:center;
+}
+
+#teachers > li {
+	display:inline-block;
+}
+
+#teachers > li:nth-child(1) {
+	/* margin-right:15px; */
+	margin-right:6px;
+}
+
+#teachers > li > img {
+	display:block;
+	margin-bottom:5px;
+	border:1px solid #ddd;
+}
+
+#teachers > li.unlocked > img {
+	cursor:pointer;
+}
+
+#teachers > li.unlocked > img:hover {
+	opacity:0.85;
+}
+
+#teachers > li.locked {
+	color:#0088cc;
+	text-decoration:underline;
+	cursor:default;
+}
+
+#sidebar > h4 {
+	text-align:center;
+	margin-bottom:0.3em;
+}
+
+#sidebar > ul {
+	text-align:center;
+}
+
+.canvas {
+	margin:0 auto;
+}
+
+.canvas-login {
+	width:450px;
+}
+
+.canvas-login > #logo {
+	border-bottom:1px solid #7f7f7f;
+	margin:30px auto;
+	width:250px;
+}
+
+.canvas-login > #logo img {
+	display:block;
+	margin:0 auto;
+}
+
+.canvas-login > header {
+	height:50px;
+	line-height:50px;
+	border: 1px solid #ccc;
+	background-color: #f6f6f6;
+	background-image: linear-gradient(to bottom, #fafafa, #f2f2f2);
+	background-repeat: repeat-x;
+	border-radius:4px 4px 0 0;
+	padding:0 10px;
+}
+
+.canvas-login > header > h3 {
+	line-height:50px;
+	margin:0;
+	text-transform:uppercase;
+	font-size:1.2em;
+	color:#555;
+	letter-spacing:0.2pt;
+	float:left;
+}
+
+.canvas-login > header > .btn-toolbar {
+	float:right;
+	margin:0;
+}
+
+form#login {
+	position:relative;
+	top:-1px;
+	background:#fff;
+	border:solid 1px #ccc;
+	border-radius:0 0 4px 4px;
+	padding:18px 20px 0 20px;
+}
+
+.canvas-login .form-actions div.span9 {
+	/* FIXME: there ought to be a better way of vertically aligning the text to the log in button ... */
+	padding-top:10px;
+}
+
+.canvas-login > #footer {
+	text-align:center;
+	color:#999;
+}
+
+/*
+.tile-navy    { background-color:#00378e; }
+.tile-blue    { background-color:#2e8bcc; }
+.tile-green   { background-color:#339933; }
+.tile-red     { background-color:#e51400; }
+.tile-yellow  { background-color:#ffc40d; }
+.tile-orange  { background-color:#f09609; }
+.tile-pink    { background-color:#e671b8; }
+.tile-purple  { background-color:#7b4f9d; }
+.tile-lime    { background-color:#8cbf26; }
+.tile-magenta { background-color:#ff0097; }
+.tile-teal    { background-color:#00aba9; }
+*/
+
+.tile-purple {
+	background-color:#8C0095;
+	background-image:-o-linear-gradient(left, #8C0095 0%, #A700AE 100%);
+	background-image:-moz-linear-gradient(left, #8C0095 0%, #A700AE 100%);
+	background-image:-webkit-linear-gradient(left, #8C0095 0%, #A700AE 100%);
+	background-image:-ms-linear-gradient(left, #8C0095 0%, #A700AE 100%);
+	background-image:linear-gradient(left, #8C0095 0%, #A700AE 100%);
+}
+
+.tile-teal {
+	background-color:#008299;
+	background-image:-o-linear-gradient(left, #008299 0%, #00A0B1 100%);
+	background-image:-moz-linear-gradient(left, #008299 0%, #00A0B1 100%);
+	background-image:-webkit-linear-gradient(left, #008299 0%, #00A0B1 100%);
+	background-image:-ms-linear-gradient(left, #008299 0%, #00A0B1 100%);
+	background-image:linear-gradient(left, #008299 0%, #00A0B1 100%);
+}
+
+.tile-orange {
+	background-color:#D24726;
+	background-image:-o-linear-gradient(left, #D24726 0%, #DC572E 100%);
+	background-image:-moz-linear-gradient(left, #D24726 0%, #DC572E 100%);
+	background-image:-webkit-linear-gradient(left, #D24726 0%, #DC572E 100%);
+	background-image:-ms-linear-gradient(left, #D24726 0%, #DC572E 100%);
+	background-image:linear-gradient(left, #D24726 0%, #DC572E 100%);
+}
+
+.tile-cyan {
+	background-color:#00AFF0;
+	background-image:-o-linear-gradient(left, #00AFF0 0%, #00C2F2 100%);
+	background-image:-moz-linear-gradient(left, #00AFF0 0%, #00C2F2 100%);
+	background-image:-webkit-linear-gradient(left, #00AFF0 0%, #00C2F2 100%);
+	background-image:-ms-linear-gradient(left, #00AFF0 0%, #00C2F2 100%);
+	background-image:linear-gradient(left, #00AFF0 0%, #00C2F2 100%);
+}
+
+.tile-green {
+	background-color:#008A00;
+	background-image:-o-linear-gradient(left, #008A00 0%, #00A600 100%);
+	background-image:-moz-linear-gradient(left, #008A00 0%, #00A600 100%);
+	background-image:-webkit-linear-gradient(left, #008A00 0%, #00A600 100%);
+	background-image:-ms-linear-gradient(left, #008A00 0%, #00A600 100%);
+	background-image:linear-gradient(left, #008A00 0%, #00A600 100%);
+}
+
+.tile-red {
+	background-color:#E60000;
+	background-image:-o-linear-gradient(left, #E60000 0%, #EB0000 100%);
+	background-image:-moz-linear-gradient(left, #E60000 0%, #EB0000 100%);
+	background-image:-webkit-linear-gradient(left, #E60000 0%, #EB0000 100%);
+	background-image:-ms-linear-gradient(left, #E60000 0%, #EB0000 100%);
+	background-image:linear-gradient(left, #E60000 0%, #EB0000 100%);
+}
+
+.tile-azure {
+	background-color:#2672EC;
+	background-image:-o-linear-gradient(left, #2672EC 0%, #2E8DEF 100%);
+	background-image:-moz-linear-gradient(left, #2672EC 0%, #2E8DEF 100%);
+	background-image:-webkit-linear-gradient(left, #2672EC 0%, #2E8DEF 100%);
+	background-image:-ms-linear-gradient(left, #2672EC 0%, #2E8DEF 100%);
+	background-image:linear-gradient(left, #2672EC 0%, #2E8DEF 100%);
+}
+
+.tile-navy {
+	background-color:#00327F;
+	background-image:-o-linear-gradient(left, #00327F 0%, #003D9D 100%);
+	background-image:-moz-linear-gradient(left, #00327F 0%, #003D9D 100%);
+	background-image:-webkit-linear-gradient(left, #00327F 0%, #003D9D 100%);
+	background-image:-ms-linear-gradient(left, #00327F 0%, #003D9D 100%);
+	background-image:linear-gradient(left, #00327F 0%, #003D9D 100%);
+}
+
+.tile-lime {
+	background-color:#8CCA1A;
+	background-image:-o-linear-gradient(left, #8CCA1A 0%, #9DD100 100%);
+	background-image:-moz-linear-gradient(left, #8CCA1A 0%, #9DD100 100%);
+	background-image:-webkit-linear-gradient(left, #8CCA1A 0%, #9DD100 100%);
+	background-image:-ms-linear-gradient(left, #8CCA1A 0%, #9DD100 100%);
+	background-image:linear-gradient(left, #8CCA1A 0%, #9DD100 100%);
+}
+
+.tile-blue, #leaderboard {
+	background-color:#2A77F4;
+	background-image:-o-linear-gradient(left, #2A77F4 0%, #3393F5 100%);
+	background-image:-moz-linear-gradient(left, #2A77F4 0%, #3393F5 100%);
+	background-image:-webkit-linear-gradient(left, #2A77F4 0%, #3393F5 100%);
+	background-image:-ms-linear-gradient(left, #2A77F4 0%, #3393F5 100%);
+	background-image:linear-gradient(left, #2A77F4 0%, #3393F5 100%);
+}
+
+.tile-amber, .tile-yellow {
+	background-color:#F3B200;
+	background-image:-o-linear-gradient(left, #F3B200 0%, #F5C400 100%);
+	background-image:-moz-linear-gradient(left, #F3B200 0%, #F5C400 100%);
+	background-image:-webkit-linear-gradient(left, #F3B200 0%, #F5C400 100%);
+	background-image:-ms-linear-gradient(left, #F3B200 0%, #F5C400 100%);
+	background-image:linear-gradient(left, #F3B200 0%, #F5C400 100%);
+}
+
+
+.tiles {
+	visibility:hidden;
+	overflow:hidden;
+}
+
+.tile {
+	float:left;
+	color:#fff;
+	border-width:5px;
+	border-style:solid;
+	border-color:#fff;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+}
+
+.tile:hover {
+	cursor:pointer;
+}
+
+.tile.clickable:hover, .tiles.selectable > .tile:hover {
+	border-color:rgba(255, 255, 255, .4);
+}
+
+.tile.locked:hover {
+	border-color:#fff !important;
+}
+
+.tile.locked:hover {
+	cursor:default;
+}
+
+/* .tiles.selectable > .tile:hover {
+	border:5px solid #2669c0;
+} */
+
+.tiles.selectable > .tile.selected {
+	background-image:url("/img/metro-corner-tick.png");
+	background-repeat:no-repeat;
+	background-position:right top;
+	border-color:#2669c0 !important;
+}
+
+.tile > .content {
+	display:table-cell;
+	vertical-align:middle;
+	padding:15px 15px 0 15px;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+}
+
+.tile > .content > p {
+	margin:1em 0;
+	line-height:1.5em;
+}
+
+.tile a {
+	color:#fff;
+	text-decoration:underline;
+}
+
+.tile a:hover {
+	background:#fff;
+	color:#2e8bcc;
+	text-decoration:none;
+}
+
+.tile > .caption {
+	font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-size:23px;
+	font-weight:lighter;
+	padding:0.4em 15px;
+	line-height:1.1em;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+}
+
+.tile > .caption > span.icon {
+	float:right;
+}
+
+.tile-captions {;
+	position:relative;
+	top:-17px; /* FIXME: this shouldn't really be hard coded */
+}
+.tile-captions > .tile > div {
+	line-height:1.4em;
+	font-size:0.9em;
+	color:#000;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+	padding:0 2px;
+}
+
+.tiles.selectable > .tile {
+	cursor:pointer;
+}
+
+.container-fluid {
+	max-width:1223px !important;
+}
+
+.tile-col {
+	padding:4px;
+}
+
+.form-horizontal legend {
+	margin-bottom:0.4em;
+}
+
+.form-horizontal .control-group {
+    margin-bottom:0.8em;
+}
+
+legend + .control-group {
+    margin-top:0.8em;
+}
+
+legend {
+	font-family:"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-weight:lighter; /* needed to get light variant of Segeo UI in Windows 8 */
+}
+
+h2 {
+	font-family:"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-weight:lighter; /* needed to get light variant of Segeo UI in Windows 8 */
+	border-bottom:1px solid #e5e5e5;
+	font-size:21px;
+}
+
+h2 > span[lang=ar] {
+	font-family:Arial;
+	font-size:24px;
+}
+
+#player {
+	display:block;
+	margin-bottom:1em
+}
+
+#exercise {
+	border:2px solid #cbcbcb;
+	visibility:hidden;
+}
+
+#quiz {
+	visibility:hidden;
+}
+
+h3 {
+	font-family:"Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-weight:lighter; /* needed to get light variant of Segeo UI in Windows 8 */
+}
+
+.faq {
+	border: 1px solid #ddd;
+	border-radius:4px;
+	margin:1.12em 0;
+	padding:15px 25px 10px 25px;
+}
+
+.faq > span {
+	background-color: #f5f5f5;
+	border: 1px solid #ddd;
+	border-radius:4px 0 4px 0;
+	/* color: #9da0a4; */
+	color: #7c7e81;
+	top:-16px;
+	left:-26px;
+	position:relative;
+	display:inline-block;
+	padding:5px;
+	font-family:"Segoe UI";
+}
+
+.lesson {
+	margin-bottom:10px;
+	border:1px solid #ccc;
+	padding:0 35px;
+	overflow:hidden;
+}
+
+.lesson > h2 {
+	margin:0 -35px 0 -35px;
+	cursor:pointer;
+	background:#f5f5f5;
+}
+
+.lesson > h2 > img {
+	position:relative;
+	left:5px;
+	top:-2px;
+	margin-right:5px;
+}
+
+.lesson > div {
+	display:none;
+	font-size:small;
+	padding:12px 0;
+}
+
+.lesson > div > div {
+	line-height:3;
+}
+
+.lesson > div > div > span {
+	float:right;
+	vertical-align:middle;
+}
+
+.lesson.starred .star {
+	background-position:0 -26px;
+}
+
+.star {
+	width:26px;
+	height:26px;
+	background-image:url(/img/star.png);
+	background-position:0 0;
+	float:right;
+
+	/* FIXME: this should be properly centred */
+	position:relative;
+	top:6px;
+	right:5px;
+}
+
+
+.am-main {
+	visibility:hidden;
+}
+
+#avatar {
+	position:relative;
+	pointer-events:none;
+	width:100px;
+	height:100px;
+	border:2px solid transparent;
+}
+
+#avatar:after {
+	/* Drag Prevention */
+	content: "";
+	position:absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#avatar > img {
+	width:100%;
+	height:100%;
+	display:block;
+	top:0;
+	left:0;
+}
+
+body.droppable #avatar {
+	border:2px dashed black;
+}
+
+body.droppable #avatar img {
+	opacity:0.3;
+}
+
+#avatar.loading {
+	background:#fff url('/img/avatar-spinner.gif') no-repeat center center;
+}
+
+#avatar.loading > img {
+	visibility:hidden;
+}
+
+#leaderboard {
+	/* background:#2e8bcc; */
+	color:#fff;
+	padding:22px;
+	
+	border-width:5px;
+	border-style:solid;
+	border-color:#fff;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	box-sizing: border-box;
+}
+
+#leaderboard header {
+	font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-weight:lighter;
+	font-size:30px;
+	margin-bottom:0.4em;
+}
+
+#leaderboard .name {
+	font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+	font-weight:lighter;
+	font-size:19px;
+	vertical-align:middle;
+	line-height:1.2em;
+}
+
+#leaderboard .rank {
+	font-size:40px;
+	font-weight:bold;
+	margin-right:15px;
+	vertical-align:middle;
+}
+
+#leaderboard img {
+	width:80px;
+	height:80px;
+	margin-right:15px;
+}
+
+#leaderboard .row {
+	display:table-row;
+	height:100px;
+	margin-bottom:10px;
+}
+
+#leaderboard .row > div {
+	display:table-cell;
+	vertical-align:middle;
+}
+
+#leaderboard .row.active > div {
+	border-bottom:1px dotted #fff;
+}
+
+body.survey .rating-tips > p {
+	display:none;
+}
+
+body.survey #teachers {
+	text-align: center;
+}
+
+body.survey #teachers > div {
+	display:inline-block;
+	position:relative;
+	width:148px;
+	height:174px;
+}
+
+body.survey #teachers > div:first-child {
+	margin-right:25px;
+}
+
+body.survey #teachers img {
+	display:block;
+	position:absolute;
+	cursor:pointer;
+}
+
+body.survey p { margin:1.5em 0; }
+
+body.survey form > label { text-align:left; }
+
+body.welcome .hero-unit > h1 {
+	text-align:center;
+}
+
+#osk {
+	padding:1.5em 0;
+	width:42em;
+	text-align: center;
+	background-color:rgba(0,0,0,0.05);
+}
+
+#osk button {
+	min-height: 1.5em;
+	min-width: 1.5em;
+	font-size:24px;
+}
+
+#key_spacebar {
+	width: 15em;
+}
+
+#osk.shift #key_leftshift,
+#osk.shift #key_rightshift,
+#osk.altGr #key_altgr,
+#osk.capsLock #key_capslock {
+	background-color: #fd9;
+}
+
+textarea[dir=rtl] {
+	font-size:xx-large;
+	line-height:1.2em;
+}
+
+#review .modal-body {
+	max-height: 540px;
+}
+
+#review {
+	width: 750px; /* SET THE WIDTH OF THE MODAL */
+	margin: 0 0 0 -375px; /* CHANGE MARGINS TO ACCOMODATE THE NEW WIDTH (original = margin: -250px 0 0 -280px;) */
+}

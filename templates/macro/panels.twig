@@ -1,0 +1,8 @@
+{% macro notes(rows) %}
+	<div class="panel" style="border:none !important; background:#fff !important">
+		<header style="margin-bottom:1em"><i class="icon-pencil icon-white"></i>&ensp;Notes</header>
+		<form>
+			<textarea id="note" style="resize:vertical" class="input-block-level" rows="{{ rows|default(5) }}"></textarea>
+		</form>
+	</div>
+{% endmacro %}

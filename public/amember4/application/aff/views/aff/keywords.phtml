@@ -1,0 +1,27 @@
+<?php
+$title = ___('Affiliate Keywords');
+$this->setLayout('member/layout.phtml'); ?>
+
+<?php 
+echo $content;
+?>
+<div>
+    <h2>How to use keywords</h2>
+    <p>
+        If you have different sources  of traffic and want to know what is  better,  you should use keywords.
+    </p>
+    <p>Let's say you have two different pages where you want to promote our site (example.com/page1.html and example.com/page2.html),
+        and you want to know what page generates more sales.</p>
+    <p>All you need to do is to include special "keyword" parameter in affiliate link. 
+        For example: 
+        <ul>
+            <li><i>Your affiliate link:</i> <?php echo ($link = sprintf('%s/aff/go/%s', ROOT_URL, urlencode(Am_Di::getInstance()->auth->getUser()->login)));?></li>
+            <li><i>Link that you should include in page1.html:</i> <?php echo $link. '<b>?keyword=page1</b>'; ?></li>
+            <li><i>Link that you should include in page2.html:</i> <?php echo $link. '<b>?keyword=page2</b>'; ?></li>
+        </ul>
+    </p>
+    <p>
+        When user clicks on affiliate link, we will extract "keyword" parameter from affiliate URL and calculate what  "keyword" generates more clicks and sales. 
+    </p>
+
+</div>

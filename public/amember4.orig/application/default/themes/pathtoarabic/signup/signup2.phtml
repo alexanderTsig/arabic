@@ -1,0 +1,63 @@
+<?php 
+if (empty($title)) $title=___('Sign-up');
+else $title=___($title);
+$this->setLayout('layout.phtml'); 
+include $this->_script('_error.phtml');
+
+$this->headScript()
+        ->appendFile(REL_ROOT_URL . '/application/default/views/public/js/jquery/jquery.validate.js');
+?>
+
+<style>
+	h1.reg, h2.reg, #masthead ul.features { display: none; }
+    #row-html2-0 { background: #dce6f2; }
+    #row-html1-0 .element { padding: 0; }
+    #row-html2-0 .element { padding: 1em 2em !important; }
+    #row-paysys_id { clear: both; }
+    .control-label { float: left !important; text-align: right !important; }
+    #content {}
+    .am-body { }
+    .am-signup {}
+    .am-form { margin: 0; }
+    .am-body .am-body-content-wrapper { padding-bottom: 0; }
+    footer { display: none; }
+    #row-html2-0 li { background: url(/img/check.png) no-repeat; margin: 0.75em 0.25em; padding-left: 2em; }
+    .am-form div.element { margin-left: 30%; width: 70%; }
+    .am-form input, .am-form select, .am-form textarea { width: auto; }
+    @media screen and (max-width: 996px) {
+        .container { width: auto !important; }
+    }
+    @media screen and (min-width: 746px) {
+        #row-html2-0 { float: right; width: 45%; min-height: 349px; position: relative; bottom: 372px; margin-bottom: -372px; }
+        /* #row-paysys_id, #row-html3-0, #row-buttons { position: relative; bottom: 350px; } */
+        .am-form div.element { margin-left: 20%; width: 35%; }
+    }
+    @media screen and (max-width: 560px) {
+        img.guarantee-image { display: none;  }
+        img.product-image { float: none !important; display: block; text-align: center; margin: 0 auto !important; }
+        form.am-signup-form .product { padding: 10px 25px 0; }
+    }    
+</style>
+
+<div class="am-signup">
+<?php echo $this->blocks('signup/login/before') ?>
+<?php include $this->_script('signup/_login-offer.phtml'); ?>
+<?php echo $this->blocks('signup/login/after') ?>
+    
+<?php echo $this->blocks('signup/form/before') ?>
+<?php include $this->_script('_form.phtml'); ?>
+<?php echo $this->blocks('signup/form/after') ?>
+</div>
+<?php include $this->_script('js.country_state.js'); ?>
+
+<script>
+	jQuery(document).ready(function($) {
+		$("div#row-paysys_id").prepend("<img class='comodo' src='/img/comodo-site-secure.png'>");
+		$("#row-product_id_page-0-0").append($("#row-coupon-0"));
+        $(".am-body-content .row-fluid > div.span10").removeClass("span10").addClass("span12");
+        $("#row-coupon-0 .element").html("<input id='coupon' type='checkbox'>");
+        $("#coupon").click(function(){
+            $(this).parent().html('<input type="text" id="coupon-0" name="coupon" size="15">');
+        });
+	});
+</script>

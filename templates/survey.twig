@@ -1,0 +1,85 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% import "macro/tiles.twig" as tile %}
+{% block template %}survey{% endblock %}
+{% block title %}Welcome!{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block maincontent %}
+    {{ parent() }}
+    {% if product_type == 'academy' %}
+        <h2>Which teachers would you prefer?</h2>
+
+        <p>Select the teacher you wish to learn from in accordance to gender. Our teachers all use the same overall teaching methods but each has a unique personal approach. Don't worry - you can change this setting at any time later.</p>
+
+        <form>
+            <div id="teachers">
+                <div class="m"></div>
+                <div class="f"></div>
+            </div>
+        </form>
+    {% endif %}    
+    <div style="text-align:center;">
+        <form style="display:inline-block;margin:0">
+            <label class="radio">
+                <input type="radio" name="gender" value="M">{{ male_teachers }}
+            </label>
+            <label class="radio">
+                <input type="radio" name="gender" value="F" checked="checked">{{ female_teachers }}
+            </label>
+        </form>
+    </div>
+
+    <h2>How good is your Arabic?</h2>
+
+    <p>How would you rate your competency in Arabic right now? Higher ratings will allow you to skip the exams for the easier course material, immediately unlocking access to the more advanced content. Please select as appropriate.</p>
+
+    <div class="tiles selectable">
+        {{ tile.generic('green',  'introductory', '1star.png') }}
+        {{ tile.generic('blue',   'beginner',     '2star.png') }}
+        {{ tile.generic('yellow', 'intermediate', '3star.png') }}
+        {{ tile.generic('orange', 'fluent',       '4star.png') }}
+        {{ tile.generic('red',    'advanced',     '5star.png') }}
+    </div>
+
+    <div class="tiles tile-captions">
+        {{ tile.caption('For people just starting out with the language.') }}
+        {{ tile.caption('For people acquainted with the alphabet but unable to converse in Arabic.') }}
+        {{ tile.caption('For people with basic Arabic conversational skills.') }}
+        {{ tile.caption('For people able to be instructed exclusively in Arabic.') }}
+        {{ tile.caption('For fluent speakers seeking greater academic knowledge of Arabic.') }}
+    </div>
+
+    <div class="rating-tips">
+        <p><i class="icon-info-sign"></i>&ensp;At introductory level, you must start with the first lesson in <strong>Level 1</strong> of the syllabus.</p>
+        <p><i class="icon-info-sign"></i>&ensp;At beginner level, you may start with the fifth lesson in <strong>Level 1</strong> of the syllabus (skipping the lessons describing the alphabet).</p>
+        <p><i class="icon-info-sign"></i>&ensp;At intermediate level, you will be able to start with lessons in <strong>Level 2</strong> of the syllabus.</p>
+        <p><i class="icon-info-sign"></i>&ensp;At fluent level, you will be able to start with lessons in <strong>Level 3</strong> of the syllabus.</p>
+        <p><i class="icon-info-sign"></i>&ensp;At advanced level, you will be able to start with lessons in <strong>Level 4</strong> of the syllabus.</p>
+    </div>
+
+    <h2 style="clear:both">How did you find out about us?</h2>
+
+    <p>Please select all options that apply:</p>
+
+    <form>
+        <fieldset style="margin-left:2em">
+            {% for option in referral_types %}
+                <label class="checkbox">
+                    <input type="checkbox" name="id_{{ option.id }}" value="{{ option.id }}">
+                    {{ option.name }}
+                </label>
+
+                {% if option.name == 'Affiliate Referral' %}
+                    <input id="affiliate-search" type="text" data-provide="typeahead" style="display:none">
+                {% endif %}
+
+            {% endfor %}
+        </fieldset>
+    </form>
+
+    <form>
+        <button type="submit" class="btn btn-primary btn-large" disabled>Continue <i class="icon-chevron-right icon-white"></i></button>
+    </form>
+{% endblock %}

@@ -1,0 +1,168 @@
+<?php 
+/**
+ *  Social Coupon v1.8
+ *  Copyright 2012 (c) R Woodgate
+ *  All Rights Reserved
+ */
+
+// Abort if doing email confirmation
+if ($_GET['_qf_EmailCode_display']) return;
+
+// Abort if no sharing options enabled
+if (
+    !$plugin->getConfig('tweet_enabled') 
+    && !$plugin->getConfig('follow_enabled')
+    && !$plugin->getConfig('google_enabled') 
+    && !$plugin->getConfig('fb_enabled') ) return;
+
+// Abort if coupon is not valid
+$coupon = Am_Di::getInstance()->couponTable->findFirstByCode($plugin->getConfig('coupon'));
+if (!$coupon) return;
+$user_id = Am_Di::getInstance()->auth->getUserId();
+if ($coupon->validate(@$user_id) !== null) return; // validate returns message (true) on error
+?>
+
+<div id="social_coupon_box" class="am-info" style="display:none;">
+<span id="social_coupon_box_close" style="display:none;float:right;cursor:pointer">X</span>
+<?php
+    // Display social coupon box title and message, if set
+    if ($plugin->getConfig('share_title')) echo '<h2>' , p($plugin->getConfig('share_title')) , '</h2>';
+    if ($plugin->getConfig('share_message')) echo '<p>' , $plugin->getConfig('share_message') , '</p>';
+?>
+
+<div id="social_coupon_options">   
+<?php /*** Facebook ***/
+if ($plugin->getConfig('fb_enabled')) : ?>	
+    <script type="text/javascript">
+	// Create an fb-root element only if needed	
+	var root = document.getElementById('fb-root');
+        if (!root) {
+            root = document.createElement('div');
+            root.setAttribute('id', 'fb-root');
+        }
+
+        var oldFbAsyncInit = window.fbAsyncInit;
+        window.fbAsyncInit = function(){
+            if(typeof oldFbAsyncInit === 'function'){
+                    // Run any previously defined init function
+                    oldFbAsyncInit();
+            } else {
+                    // Init FB ourselves
+                    FB.init({
+                    status     : false, // check login status
+                    xfbml      : true  // parse XFBML
+                    });
+            }
+
+            // Register for edge events
+            FB.Event.subscribe("edge.create", function(href, widget) { 
+                social_coupon_verify();
+            });
+	 };
+        // Load the SDK Asynchronously
+	(function(d, s, id){
+	 var js, fjs = d.getElementsByTagName(s)[0];
+	 if (d.getElementById(id)) {return;}
+	 js = d.createElement(s); js.id = id;
+	 js.src = "//connect.facebook.net/en_US/all.js";
+	 fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+        jQuery(document).ready(function($) { 
+            $('.fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr').css("display","none !important");
+        });
+    </script>   
+    <div class="fb-like" data-href="<?php j($plugin->getConfig('fb_url'))?>" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-colorscheme="<?php j($plugin->getConfig('fb_scheme'))?>"></div>&nbsp;&nbsp;
+<?php endif; // End Facebook ?>
+    
+<?php /*** Google Plusone ***/
+if ($plugin->getConfig('google_enabled')) : ?>
+    <div class="g-plusone" data-size="tall" data-annotation="bubble" data-width="300" data-callback="social_coupon_plusone" data-href="<?php j($plugin->getConfig('google_url'))?>"></div>&nbsp;&nbsp;
+    <!-- Place this tag after the last +1 button tag. -->
+    <script type="text/javascript">
+    (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+    function social_coupon_plusone(po) {
+        if (po.state == 'on') {
+            social_coupon_verify();
+        }
+    }
+    </script>    
+<?php endif; // End Plusone ?>
+    
+<?php /*** LinkedIn ***/
+if ($plugin->getConfig('linkedin_enabled')) : ?>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+    <script type="IN/Share" data-url="<?php j($plugin->getConfig('linkedin_url'))?>" data-onsuccess="social_coupon_verify" data-counter="top"></script>&nbsp;&nbsp;
+<?php endif; // End LinkedIn ?>
+
+<?php /*** Twitter ***/
+if ($plugin->getConfig('tweet_enabled') || $plugin->getConfig('follow_enabled')) :
+    
+    // Tweet
+    if ($plugin->getConfig('tweet_enabled')) {
+        echo '<a href="https://twitter.com/share" class="twitter-share-button twitter-count-vertical" data-count="vertical" data-url="', p($plugin->getConfig('tweet_url')), '" data-text="', p($plugin->getConfig('tweet_text')), '">Tweet</a>&nbsp;&nbsp;';
+    }
+    
+    // Follow
+    if ($plugin->getConfig('follow_enabled')) {
+        echo '<a href="https://twitter.com/', p($plugin->getConfig('follow_username')), '" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @', p($plugin->getConfig('follow_username')), '</a>';
+    }
+    
+    // Load Twitter SDK and make event bindings
+    ?>
+    <script type="text/javascript" charset="utf-8">
+        window.twttr = (function (d,s,id) {
+            var t, js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {js=d.createElement(s); js.id=id;
+            js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);}
+            return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+        }(document, "script", "twitter-wjs"));
+        twttr.ready(function (twttr) {
+            twttr.events.bind("tweet", function(event) { 
+                social_coupon_verify();
+            });
+            twttr.events.bind("follow", function(event) { 
+                social_coupon_verify();
+            });
+        });
+    </script>
+<?php endif; // End Twitter ?>
+    
+</div>
+</div>
+
+<script type="text/javascript">
+    function social_coupon_show() {
+        jQuery("#social_coupon_box").show();
+    }
+    function social_coupon_verify() {
+        var data = { sc: '<?php echo md5($plugin->getConfig('coupon'))?>'};
+        jQuery.post("<?php echo $this->escape(REL_ROOT_URL . '/misc/social-coupon/verify'); ?>", data, function(response) {
+            var out = jQuery.parseJSON(response);
+            jQuery("input[name='coupon']").val(out.c);
+            jQuery('#social_coupon_box h2').html(out.t);
+            jQuery('#social_coupon_box p').html(out.m);
+            jQuery('#social_coupon_options').hide();     
+        });
+    }
+    <?php if ($_COOKIE['sc_coupon'] == md5($plugin->getConfig('coupon'))) echo 'social_coupon_verify();' ?>
+	
+    jQuery(document).ready(function($) {    
+        <?php if ($plugin->getConfig('lightbox')) { ?>
+        // Lightbox mode
+        $('#social_coupon_box_close').show();
+        $("#social_coupon_box_close").click(function(){
+            $("#social_coupon_box").hide();
+        });
+        $('#social_coupon_box').css({"position":"fixed","left":"50%","top":"50%","width":"600px","margin-left":"-300px","margin-top":"-90px","height":"180px","border-width":"5px","border-color":"gray","z-index":"999999999"});
+        $("#coupon-0").after('&nbsp;&nbsp;<a class="button" href="javascript:social_coupon_show()"><?php echo p($plugin->getConfig('lightbox_button_text'))?></a>');
+
+        <?php } else { ?>
+        // Non-lightbox mode
+        $('#social_coupon_box').show();
+        <?php } ?>
+    });
+</script>

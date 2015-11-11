@@ -1,0 +1,21 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}statistics{% endblock %}
+
+{% block title %}Statistics{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	<div class="row-fluid" style="padding-top:20px">
+			<ul class="nav nav-tabs" style="margin-bottom:0 !important">
+				<li class="active"><a href="#">Level 1</a></li>
+				<li><a href="#">Level 2</a></li>
+				<li><a href="#">Level 3</a></li>
+				<li><a href="#">Level 4</a></li>
+			</ul>
+
+			<div id="chart" style="border-left:1px solid #ddd;border-bottom:1px solid #ddd;border-right:1px solid #ddd"></div>
+			<div id="chart-empty" class="alert alert-warning" style="display:none;margin-top:1.12em"></div>
+	</div>
+{% endblock %}

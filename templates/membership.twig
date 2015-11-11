@@ -1,0 +1,47 @@
+{% extends "base.twig" %}
+
+{% block head %}
+	{{ parent() }}
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.js"></script>
+	<script src="/js/yepnope.1.5.4-min.js"></script>
+	<script src="/js/plugin/jquery.transit.js"></script>
+	<script src="/js/plugin/bootbox.min.js"></script>
+	<script src="/js/base.js"></script>
+	<script src="/js/membership.js?1"></script>
+
+	{% if not get_msg is empty %}
+		<script>$("div.alert-success").show();</script>
+	{% endif %}
+
+	{{ amember_head|raw }}
+
+{% endblock %}
+
+{% block maincontent %}
+	<div class="am-body-content-wrapper am-main">
+		<div class="am-body-content 1111">
+			{{ amember_top|raw }}
+
+			{# FIXME: does this actually get passed?#}
+			{% if expired %}
+			<div id="alert-warning" class="alert alert-warning">
+				Your membership has expired. Please renew your subscription by making a payment.
+			</div>
+			{% endif %} 
+
+			<div id="alert-success" style="display:none" class="alert alert-success">
+				{% if not get_msg is empty %}{{ get_msg }}{% endif %}
+			</div>
+
+			<div id="alert-error" style="display:none" class="alert alert-error"></div>
+
+			<div id="alert-info" style="display:none" class="alert alert-info"></div>
+
+			{{ amember_content|raw }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

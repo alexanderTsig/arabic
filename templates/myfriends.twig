@@ -1,0 +1,29 @@
+
+		{% for student in board %}
+			<div class="row{% if student.user_id == id %} active{% endif %} remfrds_{{ student.user_id }}">
+				<div>
+					<img class="{% if student.user_id == id %} brder-img {% endif %}" src="http://localhost/path2arabic/code/portal.pathtoarabic.com/public/api/user/avatar/{{ student.user_id }}">
+				</div>
+				<div style="text-align:center">
+					<span class="rank">{{ student.rank }}</span>
+				</div>
+				<div>					
+					<span class="name">{{ student.login }}</span><br>
+					<span class="points"><i class="icon-star"></i> {{ student.points }}</span>
+				
+				
+				</div>
+				{% if student.user_id != id %}
+				<div class="remove-icns rmvsfrds" id="remfrds_{{ student.user_id }}">
+					<i class="icon-remove"></i>
+					</div>
+					 {% endif %}
+			</div>
+			   {% if board|length == 1 %}
+			   
+                 <div class="cmpare-txt"> Compare your progress with others!</div>
+                 {% endif %}
+		
+		{% endfor %}
+
+	

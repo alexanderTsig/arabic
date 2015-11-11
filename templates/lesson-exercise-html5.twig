@@ -1,0 +1,23 @@
+{% extends pjax == true ? "fragment.twig" : "base.twig" %}
+
+{% block template %}exercise{% endblock %}
+
+{% import "macro/panels.twig" as panel %}
+
+{% block title %}Level {{ level }} &gt; Lesson {{ lesson }} &gt; Exercise{% endblock %}
+
+{% block maincontent %}
+	{{ parent() }}
+
+	{% include 'inc/lesson-tabs.twig' %}
+
+	<div class="row-fluid">
+		<div class="span9">
+			<iframe style="border:1px solid #b5b5b5" id="exercise" scrolling="no" sandbox="allow-same-origin allow-scripts" src="{{ url }}"></iframe>
+		</div>
+
+		<div id="sidebar" class="span3">
+			{{ panel.notes }}
+		</div>
+	</div>
+{% endblock %}

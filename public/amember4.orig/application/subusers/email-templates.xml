@@ -1,0 +1,23 @@
+<table_data name="email_template">
+    <row type="email_template">
+        <field name="name">subusers.registration_mail</field>
+        <field name="lang">en</field>
+        <field name="format">text</field>
+        <field name="subject">%site_title% Registration</field>
+        <field name="txt">Dear %user.name_f% %user.name_l%,
+
+An account has been create for you on %site_title%!
+
+   Your User ID: %user.login% 
+   Your Password: %password%
+
+Log-on to use your subscription 
+   %root_url%/member
+
+--
+Best Regards,
+%site_title%
+%root_url%
+        </field>
+    </row>
+</table_data>
