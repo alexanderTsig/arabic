@@ -19,8 +19,8 @@ return array(
     'db' => array(
         'mysql' => array(
             'db'    => 'amember4_dev',
-            'user'  => 'amember',
-            'pass'  => 'c7qIvi2u',
+            'user'  => 'root',
+            'pass'  => 'root',
             'host'  => 'localhost',
             'prefix' => 'am_',
             'port'  => '',

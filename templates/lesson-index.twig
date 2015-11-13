@@ -37,7 +37,9 @@
 	
 	{% for item in lessons %}
 	<div {% if item.lesson < max_lesson %}style="display:none"{% endif %} data-level="{{ item.level }}" data-lesson="{{ item.lesson }}"
-				class="lesson{% if not item.starred is empty %} starred{% endif %}{% if item.locked == true %} locked{% endif %}{% if not item.test_status is empty %} {{ item.test_status }}{% endif %}">
+				class="lesson{% if not item.starred is empty %} starred{% endif %}{% if item.locked == true %} locked{% endif %}
+				{% if not item.test_status is empty %} {{ item.test_status }}{% endif %}"
+				>
 		<h2>
 			<img src="/img/glyphicons_200_download.png">
 			<span lang="en">{{ item.title_en }}</span><span lang="ar" dir="rtl" style="display:none">{{ item.title_ar }}</span>
@@ -49,7 +51,21 @@
 				<i class="icon-check-empty"></i>
 			{% endif %}
 			</span>
-			{% if not item.score is empty %}<span style="width:2.6em;text-align:right;margin-right:10px;float:right;display:inline-block;color:#fff;background:#aaa;font-size:smaller;padding:0 10px">{{ item.score }}%</span>{% endif %}
+			{% if not item.score is empty %}
+				<span style="width:2.6em;
+							text-align:right;
+							margin-right:10px;
+							float:right;
+							display:inline-block;
+							color:#fff;							
+							{% if item.score >= 70%}
+							background:#50B948;
+							{% endif %}
+							{% if item.score <70%}
+							background:#FFBF00;				
+							{% endif %}
+							font-size:smaller;padding:0 10px">{{ item.score }}%</span>
+			{% endif %}
 		</h2>
 
 		<div>

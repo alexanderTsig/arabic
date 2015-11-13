@@ -52,8 +52,7 @@
 					},
 					cropSuccess: function (image) {
 						var url = image.versions.bg.url;
-						$("#avatar > img").attr('src', url);
-						/*
+						$("#avatar > img").attr('src', url);						
 						$.ajax({
 							type: "POST",
 							url: '/api/user/avatarimg',
@@ -62,13 +61,13 @@
 							
 							}
 						});
-						$("input[name=background_image]").val(url);
-						$('button[type=submit]').prop('disabled', false);
-						setTimeout(function () {
-							$("#background_image").trigger("special-change");
-						})
+						// $("input[name=background_image]").val(url);
+						// $('button[type=submit]').prop('disabled', false);
+						// setTimeout(function () {
+						// 	$("#background_image").trigger("special-change");
+						// })
 						this.modal('hide');
-						*/
+						
 					}
 				});
 			}

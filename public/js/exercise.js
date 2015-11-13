@@ -10,7 +10,7 @@
 		// FIXME: Half-arsed implementation ...
         yepnope({
             load: [
-                '/js/iframeResizer/iframeResizer.min.js'
+                //'/js/iframeResizer/iframeResizer.min.js'
             ],
             complete: function () {
                 iFrameResize({

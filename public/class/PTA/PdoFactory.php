@@ -14,7 +14,7 @@ class PdoFactory {
 		# Consider making the object invocant responsible for maintaining one instance, rather than enforcing it here.
 
 		if (self::$pdo === null) {
-			self::$pdo = new PDO('mysql:host=localhost;dbname=pathtoarabic', 'pathtoarabic', 'Yop2qLpr');
+			self::$pdo = new PDO('mysql:host=localhost;dbname=dev_pathtoarabic', 'root', 'root');
 			self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 

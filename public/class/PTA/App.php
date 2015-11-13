@@ -49,7 +49,8 @@ class App {
     public static $membership_path = "http://pathtoarabic.co.uk/acad-upgrade/";
     
     public static function getAvatarPath(){
-		return '/var/cache/avatar/';
+        return $_SERVER["DOCUMENT_ROOT"]."/img/avatar/";
+		//return '/var/cache/avatar/';
     }
 
     public static function getQuestionsHavingReview($level, $lesson) {

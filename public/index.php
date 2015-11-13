@@ -1,10 +1,28 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 # This application uses the Slim micro-framework and the Twig template engine.
 # Composer was used to construct the initial application skeleton, as
 # described here:
 #
 # http://www.slimframework.com/read/skeleton-application)
+
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT");
+header("Access-Control-Allow-Headers: Content-Type");
+// Access-Control headers are received during OPTIONS requests
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+        header("Access-Control-Allow-Headers:  {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    exit(0);
+}
+
 
 require_once '../vendor/autoload.php';
 require_once 'class/autoload.php';

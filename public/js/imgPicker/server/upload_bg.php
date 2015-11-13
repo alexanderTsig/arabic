@@ -24,8 +24,15 @@ $user_id = 455; // Ahmed
 // $image->versions (array; available only in upload_complete and crop_complete)
 
 $options = [
-    'upload_dir'    => '/var/cache/avatar/',
-	'upload_url'    => '/img/avatar/',
+    //'upload_dir'    => '/var/cache/avatar/',
+	//'upload_url'    => '/img/avatar/',
+    
+
+    'upload_dir' => dirname(__FILE__) . '/../files/',
+    // Upload directory url:
+    'upload_url' => '/js/imgPicker/files/',
+
+
 	'mkdir_mode'    => 0755,
     'versions' => [
         'bg' => [

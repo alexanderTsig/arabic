@@ -67,6 +67,10 @@ $app->get('/api/user/avatar/:user_id', function($user_id = null) use ($app, $use
 	}
 });
 
+
+
+
+
 $app->get('/api/level/:level/:lesson/questions/reviewable', function($level, $lesson) use ($app) {
     $app->contentType('application/json');
     echo json_encode(PTA\App::getQuestionsHavingReview($level, $lesson));
@@ -401,4 +405,78 @@ $app->post('/api/unstar', function() use ($app, $user) {
     echo json_encode([
         'status' => ($rc !== 0)
     ]);
+});
+
+
+
+$app->post('/level/:level/:lesson/result-exercise/activities/state', function($level, $lesson) use ($app) {
+    die();
+});
+$app->post('/level/:level/:lesson/result-exercise/statements', function($level, $lesson) use ($app) {
+    $request_body = file_get_contents('php://input');
+    $data = json_decode(urldecode($request_body));
+
+//    print_r($data);
+    echo urldecode($request_body);
+//    print_r($_REQUEST);
+    die();
+});
+$app->post('/level/:level/:lesson/result-exam/activities/state', function($level, $lesson) use ($app) {
+    $request_body = file_get_contents('php://input');
+//    $data = json_decode(urldecode($request_body));
+    parse_str(urldecode($request_body), $data);
+    print_r($data);
+    die();
+});
+$app->post('/level/:level/:lesson/result-exam/statements/', function($level, $lesson) use ($app) {
+    $request_body = file_get_contents('php://input');
+    parse_str(urldecode($request_body), $data);
+    if (isset($data['content'])) {
+        $result = json_decode($data['content']);
+    }else{
+        die();
+    }
+    $verb = $result->verb->id;
+    $verb = str_replace('http://adlnet.gov/expapi/verbs/', '', $verb);
+    $user_id = $data['user'];
+    $authKey = $data['Authorization'];    
+    if(in_array($verb, array('completed','passed','failed'))){
+        if (\PTA\User::validateNonce($user_id, $authKey, $_SERVER['REMOTE_ADDR'], 'exam')) {
+        $user = \PTA\User::getInstance($user_id);
+        $oldlevel = $user->getLevel();
+        if(isset($result->result->completion) == true){
+            die();
+        }
+        $score = $result->result->score->scaled*100;
+        $passingScore = 70;
+        if($verb == "failed"){
+            if($score > $passingScore){
+                $passingScore = $score+10;
+            }
+        }else if($verb == "passed"){
+            if($score < $passingScore){
+                $passingScore = $score+10;
+            }
+        }
+        $status = $user->setTestResults([
+            'level' => $level,
+            'lesson' => $lesson,
+            'id' => $user_id,
+            'score' => $score,
+            'passing_score' => $passingScore,
+            'min_score' => 0,
+            'max_score' => 100,
+            'points' => $result->result->score->raw,
+            'max_points' => $result->result->score->max
+        ]);
+        echo json_encode([
+            'code' => ($status !== null) ? 0 : 1,
+            'pass' => $status,
+            'startlevel' => $user->getStartPosition()['level'],
+            'oldlevel' => $oldlevel,
+            'level' => $user->getLevel(),
+            'lesson' => $user->getMaxLesson()
+        ]);
+       }   
+    }   
 });

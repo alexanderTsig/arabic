@@ -101,7 +101,7 @@
 				// FIXME: Hard-coding the aspect ratio makes no sense (server doesn't know viewport dimensions).
 				// Also, #imageModal is a questionable name.
 				$('#imageModal').imgPicker({
-					url: '/lib/upload_bg.php',
+					url: '/js/imgPicker/server/upload_bg.php',
 					aspectRatio: 1.45,
 					deleteComplete: function() {
 						var defaultImage = $("input[name=default_background_image]").val();
