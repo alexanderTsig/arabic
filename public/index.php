@@ -54,9 +54,16 @@ $app = new \Slim\Slim([
 $user = \PTA\User::getInstance();
 $app->hook('slim.before', function() use ($app, $user) {
 	$request_path = $app->request()->getPathInfo();
+
 	# Do not allow for exam result submissions to be thwarted by an expired aMember session
-	if ($app->request()->isPost() && (preg_match('/^\/level\/\d+\/\d+\/exam$/', $request_path) != 0 || preg_match('/^\/level\/\d+\/\d+\/result/', $request_path) != 0))
-		return;
+
+	if ($app->request()->isPost() && ((preg_match('/\/\d+\/\d+\/exam/', $request_path) != 0 || preg_match('/\/\d+\/\d+\/result/', $request_path) != 0))){
+        return true;
+    }
+
+
+
+
 	if ($user->isLoggedIn() && !$user->isMembershipValid()) {
 		# Redirect the user to the signup page unless dealing with an XHR request for user data
 		if (!($app->request()->isGet() && substr($request_path, 0, 9) === '/api/user')) {

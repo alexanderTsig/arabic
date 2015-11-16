@@ -409,23 +409,27 @@ $app->post('/api/unstar', function() use ($app, $user) {
 
 
 
-$app->post('/level/:level/:lesson/result-exercise/activities/state', function($level, $lesson) use ($app) {
+/**
+ * Engage tincan APi endpoint
+ */
+$app->post('/:level/:lesson/result-exercisestatements', function($level, $lesson) use ($app) {
     die();
 });
-$app->post('/level/:level/:lesson/result-exercise/statements', function($level, $lesson) use ($app) {
-    $request_body = file_get_contents('php://input');
-    $data = json_decode(urldecode($request_body));
 
-//    print_r($data);
-    echo urldecode($request_body);
-//    print_r($_REQUEST);
+$app->post('/:level/:lesson/result-exercisestatements/activities/state', function($level, $lesson) use ($app) {
     die();
 });
+
+$app->post('/:level/:lesson/result-exercisestatements/statements', function($level, $lesson) use ($app) {
+    die();
+});
+
+
+/**
+ * Unlock tincan APi endpoint
+ */
+
 $app->post('/level/:level/:lesson/result-exam/activities/state', function($level, $lesson) use ($app) {
-    $request_body = file_get_contents('php://input');
-//    $data = json_decode(urldecode($request_body));
-    parse_str(urldecode($request_body), $data);
-    print_r($data);
     die();
 });
 $app->post('/level/:level/:lesson/result-exam/statements/', function($level, $lesson) use ($app) {
