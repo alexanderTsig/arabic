@@ -799,3 +799,18 @@ a.thumbnail.selected{
 .tip.alert.alert-block{
     color: #443E3E;
 }
+
+/*
+ * Override Css defined on amember4.css
+ */
+ @media all and (max-width: 500px) {
+      .am-body-content .am-tabs-wrapper {
+        display: block;
+      }
+}
+@media all and (max-width: 750px) {
+      .am-body-content .am-layout-two-coll .am-coll-left, .am-body-content .am-layout-two-coll .am-coll-right {
+            padding: 0 3%;
+            width: 92%;
+      }
+}

@@ -7,8 +7,8 @@ use \Michelf\Markdown;
 
 class App {
 
-    protected static $exam_path = 'https://ptaexam.s3.amazonaws.com/';
-    protected static $exercise_path = "https://ptaexercise.s3.amazonaws.com/";    
+    protected static $exam_path = 'http://ptaexam.s3.amazonaws.com/';
+    protected static $exercise_path = "http://ptaexercise.s3.amazonaws.com/";    
 
     const MAX_CLIPS = 2; // Allow up to two video clips per lesson/level tuple
 

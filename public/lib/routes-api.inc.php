@@ -420,6 +420,10 @@ $app->post('/:level/:lesson/result-exercisestatements/activities/state', functio
     die();
 });
 
+$app->post('/:level/:lesson/result-exerciseactivities/state', function($level, $lesson) use ($app) {
+    die();
+});
+
 $app->post('/:level/:lesson/result-exercisestatements/statements', function($level, $lesson) use ($app) {
     die();
 });
