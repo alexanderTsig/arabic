@@ -14,7 +14,7 @@
 					pta.setPreference($(this).attr('name'), $(this).val());
 				}else{
 					pta.user.rating = {
-						"level": $(this).val(),
+						"level": $(this).attr("data-level"),
 						"lesson" : $(this).attr("data-lesson")
 					};
 				}
@@ -171,7 +171,7 @@
 						$(this).prop('checked', $(this).attr('value') === value);
 					});
 				}
-				// Triggers special-change event so that the backround image thumbnail is shown.
+				// Triggers special-change event  n so that the backround image thumbnail is shown.
 				// FIXME: What is the event called special-change? Why not call a function?
 				setTimeout(function () {
 					$('input#' + pref).trigger("special-change");

@@ -106,6 +106,8 @@ $app->get('/api/user/data', function() use ($app, $user) {
 		$user->invalidateCache();
 	}
     $app->contentType('application/json');
+
+    //$user->pref->level="1";
     echo json_encode($user);
 });
 
@@ -409,6 +411,9 @@ $app->post('/api/unstar', function() use ($app, $user) {
 
 
 
+
+
+
 /**
  * Engage tincan APi endpoint
  */
@@ -420,7 +425,7 @@ $app->post('/:level/:lesson/result-exercisestatements/activities/state', functio
     die();
 });
 
-$app->post('/:level/:lesson/result-exerciseactivities/state', function($level, $lesson) use ($app) {
+$app->get('/:level/:lesson/result-exerciseactivities/state', function($level, $lesson) use ($app) {
     die();
 });
 

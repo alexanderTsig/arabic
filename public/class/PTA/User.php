@@ -22,7 +22,7 @@ class User implements \JsonSerializable {
     #
 	public function __construct($id = null) {
         if ($id === null) {
-            $am_user = \AM_Lite::getInstance()->getUser();
+            $am_user = \AM_Lite::getInstance()->getUser();            
             $this->id = $am_user['user_id'];
         } else {
             $this->id = $id; // This is useful for debugging
@@ -38,7 +38,7 @@ class User implements \JsonSerializable {
 	public static function getInstance($id = null) {
         if ($id !== null) {
             self::$instance = new User($id);
-        } elseif (self::$instance === null) {
+        } elseif (self::$instance === null) { 
             $am_user = \AM_Lite::getInstance()->getUser();
 
             if ($am_user !== null && array_key_exists('access_level', $am_user) && $am_user['access_level'] == 1) {
@@ -71,7 +71,12 @@ class User implements \JsonSerializable {
                     'pseudoStreaming' => $this->getPref('video:pseudoStreaming'),
                 ],
                 'defaultGender' => $this->getPreferredGender(),
-                'background_image' => $this->getBackgroundImage()
+                'background_image' => $this->getBackgroundImage(),
+                'rating' => [
+                    'level' => $this->getStartPosition()['level'] . '_' . $this->getStartPosition()['lesson'],
+                    'data_level' => $this->getStartPosition()['level'],
+                    'data_lesson' => $this->getStartPosition()['lesson']
+                ]                
             ]
         ];
     }
@@ -1017,6 +1022,11 @@ SQL;
     }
 
     public function setStartPosition($position) {
+        // clear cache
+        $cache = App::getMemcachedInstance();
+        $memcache_key = 'user-' . $this->getUserId() . '-startposition';
+        $cache->set($memcache_key, false);
+
         $sql = 'INSERT INTO user (id, start_level, start_lesson) VALUES (:user_id, :level, :lesson) ON DUPLICATE KEY UPDATE start_level = :level, start_lesson = :lesson';
         $stmt = PdoFactory::getInstance()->prepare($sql);
         $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
@@ -1116,7 +1126,7 @@ SQL;
     # Store a user preference as a key/value pair in volatile storage
 
     #
-	public function setPref($pref, $value) {
+	public function setPref($pref, $value  ) {
         if ($value === "true") {
             $value = true;
         } elseif ($value === "false") {

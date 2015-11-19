@@ -358,6 +358,9 @@ div.stageplayer-content iframe{
 }
 @media (max-width: 767px){
     .exercise.learning-page .pager, .exam.learning-page .pager{
-        display: none;       
+        display: none;
+    }
+    .video.learning-page .pager .previous, .video.learning-page .pager .next{
+        display: none;
     }
 }
