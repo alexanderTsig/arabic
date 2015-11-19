@@ -112,6 +112,7 @@ $app->get('/api/user/data', function() use ($app, $user) {
 });
 
 $app->post('/api/user/data', function() use ($app, $user) {
+    die();
     $app->contentType('application/json');
     $data = json_decode($app->request()->getBody());
     if (isset($data->rating) && $data->rating) {
@@ -425,7 +426,7 @@ $app->post('/:level/:lesson/result-exercisestatements/activities/state', functio
     die();
 });
 
-$app->get('/:level/:lesson/result-exerciseactivities/state', function($level, $lesson) use ($app) {
+$app->post('/:level/:lesson/result-exerciseactivities/state', function($level, $lesson) use ($app) {
     die();
 });
 
