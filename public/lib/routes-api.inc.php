@@ -112,7 +112,6 @@ $app->get('/api/user/data', function() use ($app, $user) {
 });
 
 $app->post('/api/user/data', function() use ($app, $user) {
-    die();
     $app->contentType('application/json');
     $data = json_decode($app->request()->getBody());
     if (isset($data->rating) && $data->rating) {

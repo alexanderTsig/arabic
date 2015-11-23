@@ -457,7 +457,8 @@ SQL;
         $stmt = PdoFactory::getInstance()->prepare($sql);
         $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
         $stmt->execute();
-        return ($stmt->rowCount() > 0 ? $stmt->fetchColumn(0) : '');
+        $background_image = ($stmt->rowCount() > 0 ? $stmt->fetchColumn(0) : '');
+        return($background_image?$background_image:"");        
     }
 
     # null then all levels are taken into consideration.
